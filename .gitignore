@@ -1,0 +1,61 @@
+# Folders
+
+
+# Documents
+*_orig*
+
+# FEMM
+*.ans
+*.db
+*.asv
+
+#Plecs
+*.autosave
+
+# Powerpoint
+~$*
+
+# Matlab
+*.asv
+
+# Latex
+/build/*
+!/build/main.pdf
+/logos/*.pdf
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.run.xml
+*.bcf
+*converted-to.pdf
+*.asv
+*.gz
+*.synctex
+*.tmp
+*.ms
+*.msi
+*.msl
+*.mso
+*.sgo
