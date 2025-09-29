@@ -10,8 +10,8 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=0.6\columnwidth,
-height=0.5\columnwidth,
+width=0.75\columnwidth,
+height=0.4\columnwidth,
 at={(0\columnwidth,0\columnwidth)},
 scale only axis,
 xmin=0,
@@ -24,13 +24,15 @@ ymax=25,
 ytick distance = 5,
 ylabel style={font=\color{white!15!black}},
 ylabel={Leg current ripple [A]},
-y label style={at={(axis description cs:0.12,.5)},anchor=south},
+y label style={at={(axis description cs:0.1,.5)},anchor=south},
 axis background/.style={fill=white},
 axis x line*=bottom,
 axis y line*=left,
 xmajorgrids,
 ymajorgrids,
-legend style={at={(1.02,0.5)}, anchor=west, legend cell align=left, align=left, draw=white!15!black},
+%legend style={at={(1.02,0.5)}, anchor=west, legend cell align=left, align=left, draw=white!15!black},
+legend style={at={(0.5,-0.3)}, anchor=north, legend cell align=left, align=left, draw=white!15!black},
+legend columns=3
 ]
 \addplot [color=mycolor1]
   table[row sep=crcr]{%

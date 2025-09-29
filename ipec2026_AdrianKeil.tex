@@ -55,6 +55,7 @@
 \mathSymbol{D}{D}{Dutycycle}
 \mathSymbol{Vin}{V_{in}}{Input voltage}
 \mathSymbol{DeltaIleg}{\Delta I_{leg}}{Peak-to-peak leg current ripple}
+\mathSymbol{Ion}{I_{neg}}{Turn-on current}
 
 \begin{document}
 
@@ -89,6 +90,8 @@ This paper presents a highly compact interleaved buck converter for \qty{48}{\V}
 
 %The design of the inductor becomes a real challenge in the \unit{\MHz}-range as proximity and skin-effect play a significant role and increase copper losses drastically. A custom coupled inductor using planar magnetics was developed to cope with that. Through the combination of \acp{ganfet}, the custom inductor and soft-switched operation the converter pushes the boundaries of power density and efficiency.
 
+ToDo: Operation with soft-switching! Some waveforms and schematic!
+
 \section{Impact of the Coupling Factor}
 The symmetrical coupled inductor consists of two identical coils that are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
 \begin{equation}
@@ -116,28 +119,29 @@ The voltage at the virtual central node is now only dependent of the two leg vol
 From this, the differential equations for each interval can be easily calculated and afterwards the important converter parameters. An effective dutycycle \sbl{Deff} can be introduced with $\sbl{Deff} = D$ for $\sbl{D} \leq 0.5$ and $\sbl{Deff} = 1-D$ for $\sbl{D} > 0.5$.
 The output ripple is described by
 \begin{equation}
-  \frac{2\sbl{Vin}\sbl{Ts}}{(1+\sbl{k})\sbl{Lself}}\sbl{Deff}(\frac{1}{2}-\sbl{Deff})
+  \frac{2\sbl{Vin}}{\sbl{fs}(1+\sbl{k})\sbl{Lself}}\sbl{Deff}(\frac{1}{2}-\sbl{Deff}).
 \end{equation}
-and shown in figure \ref{fig:OutputRipple}.
+The ripple in each leg which is important for soft-switching is given by
+\begin{equation}
+  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{fs}\sbl{Lself}} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr )  .
+\end{equation}
+Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong dependency of these parameters with dutycyle but interestingly, the leg ripple current is not that significantly influenced by the coupling-factor. As the coupling increases, \sbl{Lout} increases while \sbl{Lm} decreases causing a decrease in \sbl{iout} but an increase in \sbl{im}.
 \begin{figure}
   \centering
   \input{figures/outputRipple_new.tikz}
-  \caption{Comparison of the output current ripple for different coupling factors and constant input voltage. ToDo: Redo with normalized y-axis.}
-  \label{fig:OutputRipple}
-\end{figure}
-
-The ripple in each leg which is important for soft-switching is given by
-\begin{equation}
-  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Ts}\sbl{Deff}}{2\sbl{Lself}} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr )  
-\end{equation}
-and shown in figure \ref{fig:LegRipple}.
-
-\begin{figure}
-  \centering
   \input{figures/legRipple_new.tikz}
-  \caption{Comparison of the output current ripple for different coupling factors and constant input voltage. ToDo: Redo with normalized y-axis.}
-  \label{fig:LegRipple}
+  \caption{Output current ripple and leg ripple for different coupling factors and constant input voltage. 1-ph for comparison. ToDo: Redo with normalized y-axis.}
+  \label{fig:OutputAndLegRipple}
 \end{figure}
+
+As mentioned before, for soft-switching \sbl{Ion} needs to be negative and generally needs to be below a certain value to guarantee a sufficiently short dead time which can be written as $\sbl{DeltaIleg} \geq \sbl{iout}+2\sbl{Ion}$. This is fulfilled for
+\begin{equation}
+    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout}+2\sbl{Ion})} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr ).
+    \label{eq:ConditionZVS}
+\end{equation}
+
+
+
 
 \section{Inductor Design}
 Four-pole introduced by  \cite{huaUltrathinCoupledInductor2021}. 
