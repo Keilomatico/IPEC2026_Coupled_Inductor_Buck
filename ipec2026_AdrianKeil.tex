@@ -17,6 +17,7 @@
 \pgfplotsset{compat=1.18}
 \usepackage{caption}          % Necessary for subcaption
 \usepackage{subcaption}       % Multiple figures in one
+\usepackage{tabularx}
 
 \usepackage{siunitx}                % Units; e.g. prevents linebreak between number and unit
 \sisetup{
@@ -65,6 +66,7 @@
 
 \newacronym{tcm}{TCM}{triangular current mode}
 \newacronym{zvs}{ZVS}{zero voltage switching}
+\newacronym{pcb}{PCB}{printed circuit board}
 
 \begin{document}
 
@@ -179,22 +181,83 @@ As mentioned before, for soft-switching \sbl{Ion} needs to be negative and gener
 
 \section{Inductor Design}
 \subsection{Inductor geometry}
-Four different geometries were considered for this application:
-\begin{itemize}
-  \item Four-pole structure introduced by  \cite{huaUltrathinCoupledInductor2021}. 
-\end{itemize}
-
-Left: Double-PQ structure \cite{wangPCBWindingBasedCoupled2023}. Right: Four-pole structure \cite{huaUltrathinCoupledInductor2021}.
-
 \begin{figure}
   \includegraphics[page=1, trim = 0cm 3cm 3cm 3cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Structure of the cores; Cut through the center, sie-view. First winding in red, second winding in blue.}
   \label{fig:Core_Drawings}
 \end{figure}
+Four different geometries, two coupled, and two uncoupled ones for reference, were considered for this application as shown in figure \ref{fig:Core_Drawings}. The Double-PQ structure was introduced by \cite{wangPCBWindingBasedCoupled2023} and modified with a dual air-gap; more on that later. The four-pole structure is very similar but omits the central pole which creates separate paths for DC and fundamental flux \cite{huaUltrathinCoupledInductor2021}. The third geometry is basically an EE-Core but instead of one central gap two gaps are used. Lastly, a vertical gap geometry is investigated which can partly compensate the internal proximity effect \cite{schaferNovelHighlyEfficient2020}. %A notable downside of the vertical gap is that it prohibits cooling with conductive materials from the top and bottom, which is usually a big advantage of planar inductors, due to the external flux in this area. 
+\par All designs use a single turn with all layers in parallel. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing.
 
+\subsection{Positive vs negative coupling}
+ToDo
+
+\subsection{Simulation Process}
+- 3d in 2d
+- FEMM for fast iterations
+
+\subsection{Split air-gap and optimized windings}
+\begin{figure}
+  \includegraphics[page=2, trim = 0cm 7cm 13cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \caption{Comparison of convential air-gap with the optimized version. Because all layers are in parallel the current crowds in areas of large field-strength. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
+  \label{fig:Core_Drawings}
+\end{figure}
+
+\begin{table}
+  \centering
+  \caption{Comparison of the size and loss of the optimized pillar and windings for the four-pole design.}
+    \begin{tabular}{|p{0.35\columnwidth}|p{0.2\columnwidth}|p{0.25\columnwidth}|}
+    \hline  
+      & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
+    \hline
+    \hline
+    Original design & 5.8 & 7.0 \\
+    \hline
+    Air-Gap on top and bottom & 5.5 & 5.7 \\
+    \hline
+    Air-Gap on top and bottom, curved windings & 5.3 & 5.0 \\
+    \hline
+    \end{tabular}%
+  \label{tab:OptimizationPQ}%
+\end{table}%
+
+The external proximity effect caused by the air-gap plays an important role for the current distribution and consequently the losses of this high-frequency inductor. The field-strength at the top of the windings is large and almost zero at the bottom. As a result, the AC current is only flowing in the top layers. By centering the pillar vertically in the window such that there is an equal air-gap on the top and on the bottom, the field-strength is distributed much more uniformly and current flows in the top and bottom layers. This results in a \qty{20}{\percent} reduction in losses, which can be reduced even further by using curved windings as shown in table \ref{tab:OptimizationPQ}.
 
 \subsection{Material limitations}
 High-frequency ferrite materials for power applications have some unique properties that differ from those for lower frequency applications. TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
+
+\subsection{Inductor Design Process}
+Using a brute-force algorithm was deemed impossible due to the many free variables with the custom design. Instead, a manual optimization was conducted for each structure. The desired switching-frequency was fixed to \qty{1.5}{\MHz} for full-load operation, the coupling-factor to -0.3, and the winding with to \qty{3}{\mm} as this showed a good balance between size and losses. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$ and the air-gaps are defined by desired inductance (i.e. switching frequency) and coupling-factor. The spacing between \ac{pcb} and top/bottom of the core is the only free variable and has to be chosen for a compromise between size and efficiency.
+
+\begin{figure}
+  \centering
+  \input{figures/fourPole_spacingVsLoss.tikz}
+  \caption{Spacing between PCB and core vs. loss for the four-pole core (with curved windings and centered pillar). The distance between the PCB and the side air-gap core is fixed to \qty{0.2}{\mm} and the distance between PCB and bottom is varied. The pillar is always centered between top and bottom.}
+  \label{fig:fourPole_spacingVsLoss}
+\end{figure}
+
+\subsection{Vertical Air-Gap}
+The design with vertical air-gap showed a significantly lower loss compared to a traditional horizontal gap while having a much lower volume. This confirms the results from \cite{schaferNovelHighlyEfficient2020}. The main downside of this design is the significant external field on top and bottom of the inductor. This makes cooling difficult as no conductive material can be placed on top or bottom of the core, eliminating one of the typical advantages of planar inductors: The large area for cooling. Cooling from the side is proposed by \cite{schaferNovelHighlyEfficient2020} by having copper extending to the outside of the core where a heatsink can be attached but this is much less convenient and requires additional space.
+
+\subsection{Comparison of Core Structures}
+A comparison of the core structures is shown in table \ref{tab:InductorComparison}. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed the lowest losses and and volume.
+\begin{table}
+  \centering
+  \caption{Comparison of the size and loss of the different core structures for \qty{1.5}{\MHz} respecting the \sbl{Hdc} limit.}
+    \begin{tabularx}{\columnwidth}{l|X|X|X|X|X}
+        & {Total Area [\unit{\cm\squared}]} & {Height [\unit{\cm}]} & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
+    \hline
+    \hline
+    Four-Pole & 5.5 & 0.9 & 5.3 & 5.0 \\
+    \hline
+    Double PQ & 6.2 & 0.9 & 5.5 & 5.2 \\
+    \hline
+    Vertical gap & 8.0 & 0.7 & 5.8 & 5.6 \\
+    \hline
+    UU core & 8.1 & 1.1 & 8.9 & 6.0
+    \end{tabularx}%
+  \label{tab:InductorComparison}%
+\end{table}%
 
 
 \section{Experimental prototype}
