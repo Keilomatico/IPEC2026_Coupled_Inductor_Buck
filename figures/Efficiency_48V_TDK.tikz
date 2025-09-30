@@ -1,0 +1,127 @@
+%% Matlab Colors
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+\definecolor{mycolor6}{rgb}{0.30100,0.74500,0.93300}%
+
+\begin{tikzpicture}
+    \begin{axis}[%
+        axis y line*=left,
+        width=\columnwidth,
+        height=0.6\columnwidth,
+        xmin=0,
+        xmax=1000,
+        ymin = 0.9,
+        ymax = 0.98,
+        xlabel={\sbl{Pout} [W]},
+        ylabel={Efficiency},
+        yticklabel={\pgfmathparse{\tick*100}\pgfmathprintnumber{\pgfmathresult}\%},
+        xmajorgrids,
+        xminorgrids,
+        minor x tick num=1,
+        ymajorgrids,
+        yminorgrids,
+        minor y tick num=1,
+        legend style={at={(0.5,-0.3)}, anchor=north, legend cell align=left, align=left, draw=white!15!black},
+        legend columns=3
+    ]
+        \addplot [smooth, color=mycolor1, mark=o, mark options={solid, mark size=1pt, mycolor1}]
+        table[row sep=crcr]{%
+62.9	0.691694257\\
+125.5	0.815818548\\
+188.0	0.867678959\\
+250.2	0.896092267\\
+312.2	0.913584221\\
+373.9	0.925145996\\
+435.3	0.93331475\\
+496.4	0.939204148\\
+557.1	0.943657677\\
+617.3	0.946993756\\
+676.9	0.949462788\\
+735.9	0.951215098\\
+794.0	0.952391805\\
+850.7	0.953146007\\
+905.1	0.953529288\\
+954.3	0.953652443\\
+997.8	0.952362317\\
+1039.1	0.948949772\\
+        };
+        \addlegendentry{\qty{1.25}{\MHz}}
+
+        \addplot [smooth, color=mycolor2, mark=o, mark options={solid, mark size=1pt, mycolor2}]
+        table[row sep=crcr]{%
+61.7	0.742108935\\
+123.1	0.85041111\\
+184.2	0.893615989\\
+245.0	0.916766467\\
+305.3	0.93057418\\
+365.3	0.939723701\\
+424.7	0.946047092\\
+483.5	0.950520936\\
+541.7	0.953613238\\
+598.6	0.955864976\\
+653.7	0.957448367\\
+704.7	0.958501088\\
+749.6	0.95826356\\
+792.8	0.955006505\\
+829.8	0.948969556\\
+        };
+     \addlegendentry{\qty{1.5}{\MHz}}
+
+        \addplot [smooth, color=mycolor3, mark=o, mark options={solid, mark size=1pt, mycolor3}]
+        table[row sep=crcr]{%
+62.1	0.808207945\\
+123.7	0.892705101\\
+184.8	0.924369748\\
+245.2	0.940517737\\
+305.0	0.950394167\\
+363.6	0.95630787\\
+420.3	0.960332694\\
+473.4	0.963192056\\
+520.6	0.963357083\\
+565.4	0.958645597\\
+604.5	0.949556994\\
+640.3	0.942556825\\
+        };
+        \addlegendentry{\qty{2}{\MHz}}
+
+        \addplot [smooth, color=mycolor4, mark=o, mark options={solid, mark size=1pt, mycolor4}]
+        table[row sep=crcr]{%
+59.5	0.841743314\\
+118.1	0.911878282\\
+175.6	0.937486654\\
+231.5	0.950322289\\
+284.5	0.958559348\\
+331.7	0.96159309\\
+375.4	0.955384185\\
+414.1	0.942270059\\
+442.7	0.927589675\\
+        };
+        \addlegendentry{\qty{2.5}{\MHz}}
+
+        \addplot [smooth, color=mycolor5, mark=o, mark options={solid, mark size=1pt, mycolor5}]
+        table[row sep=crcr]{%
+57.2	0.856371361\\
+112.7	0.920470319\\
+165.5	0.943988136\\
+212.8	0.95387305\\
+255.4	0.94690003\\
+293.2	0.927676538\\
+316.8	0.902598143\\
+        };
+        \addlegendentry{\qty{3}{\MHz}}
+
+        \addplot [smooth, color=mycolor6]
+        table[row sep=crcr]{%
+213.23	0.95387305\\
+332.12	0.96159309\\
+520.87	0.9634\\
+749.68	0.9583\\
+954.41	0.953652443\\
+        };
+        \addlegendentry{Max}
+
+\end{axis}
+\end{tikzpicture}%

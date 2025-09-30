@@ -1,0 +1,125 @@
+%% Matlab Colors
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+\definecolor{mycolor6}{rgb}{0.30100,0.74500,0.93300}%
+
+\begin{tikzpicture}
+  \begin{axis}[%
+    axis y line*=left,
+    width=\columnwidth,
+    height=0.6\columnwidth,
+    xmin=0,
+    xmax=1000,
+    ymin = 90,
+    ymax = 98,
+    xlabel={\sbl{Pout} [W]},
+    ylabel={Efficiency},
+    yticklabel={\pgfmathparse{\tick}\pgfmathprintnumber{\pgfmathresult}\%},
+    xmajorgrids,
+    xminorgrids,
+    minor x tick num=1,
+    ymajorgrids,
+    yminorgrids,
+    minor y tick num=1,
+    legend style={at={(0.5,-0.3)}, anchor=north, legend cell align=left, align=left, draw=white!15!black},
+    legend columns=3
+  ]
+    \addplot [smooth, color=mycolor1, mark=o, mark options={solid, mark size=1pt, mycolor1}]
+    table[row sep=crcr]{%
+62.71	65.62\\
+125.15	79.09\\
+187.41	84.89\\
+249.37	88.10\\
+311.08	90.10\\
+372.46	91.44\\
+433.43	92.40\\
+494.07	93.11\\
+554.09	93.65\\
+613.55	94.06\\
+672.03	94.37\\
+729.44	94.59\\
+784.38	94.77\\
+834.20	94.89\\
+879.82	94.85\\
+923.17	94.58\\
+956.24	94.10\\
+1007.90	93.93\\
+    };
+    \addlegendentry{\qty{1.25}{\MHz}}
+
+    \addplot [smooth, color=mycolor2, mark=o, mark options={solid, mark size=1pt, mycolor2}]
+    table[row sep=crcr]{%
+61.45	71.15\\
+122.59	82.97\\
+183.40	87.82\\
+243.77	90.47\\
+303.74	92.11\\
+363.10	93.17\\
+421.83	93.91\\
+478.17	94.43\\
+536.10	94.82\\
+589.61	95.12\\
+637.61	95.30\\
+683.05	95.15\\
+725.28	94.71\\
+760.48	94.17\\
+    };
+   \addlegendentry{\qty{1.5}{\MHz}}
+
+    \addplot [smooth, color=mycolor3, mark=o, mark options={solid, mark size=1pt, mycolor3}]
+    table[row sep=crcr]{%
+61.84	78.01\\
+123.02	87.55\\
+183.59	91.16\\
+243.32	93.05\\
+301.97	94.23\\
+358.55	94.98\\
+411.12	95.48\\
+458.80	95.55\\
+504.03	95.03\\
+537.32	93.93\\
+584.52	93.65\\
+634.23	93.56\\
+    };
+    \addlegendentry{\qty{2}{\MHz}}
+
+    \addplot [smooth, color=mycolor4, mark=o, mark options={solid, mark size=1pt, mycolor4}]
+    table[row sep=crcr]{%
+59.13	81.29\\
+117.07	89.46\\
+173.59	92.55\\
+227.47	94.17\\
+276.31	95.02\\
+321.09	94.67\\
+361.40	93.44\\
+392.20	91.98\\
+437.17	91.82\\
+    };
+    \addlegendentry{\qty{2.5}{\MHz}}
+
+    \addplot [smooth, color=mycolor5, mark=o, mark options={solid, mark size=1pt, mycolor5}]
+    table[row sep=crcr]{%
+56.75	83.44\\
+111.10	90.83\\
+161.33	93.52\\
+205.85	93.76\\
+246.19	92.25\\
+272.08	89.37\\
+    };
+    \addlegendentry{\qty{3}{\MHz}}
+
+    \addplot [smooth, color=mycolor6]
+    table[row sep=crcr]{%
+213.2	95.39\\
+332.1	96.16\\
+520.9	96.34\\
+749.7	95.83\\
+954.4	95.37\\
+    };
+    \addlegendentry{Max}
+
+\end{axis}
+\end{tikzpicture}%
