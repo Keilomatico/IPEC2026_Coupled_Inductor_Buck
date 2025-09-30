@@ -14,6 +14,9 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 %s\usepackage{tikz}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{caption}          % Necessary for subcaption
+\usepackage{subcaption}       % Multiple figures in one
 
 \usepackage{siunitx}                % Units; e.g. prevents linebreak between number and unit
 \sisetup{
@@ -37,7 +40,7 @@
 \newcommand{\mathSymbol}[3]{
     \newglossaryentry{#1}{symbol={\ensuremath{#2}}, name={#3}, description={}, sort={#1}}
 }
-\makeglossaries
+
 \mathSymbol{Lself}{L_{self}}{Self-inductance of each coil of a symmetrical coupled inductor}
 \mathSymbol{k}{k}{Coupling-factor of the coupled inductor}
 \mathSymbol{Lm}{L_m}{Magnetizing inductance in the transformer model}
@@ -55,7 +58,13 @@
 \mathSymbol{D}{D}{Dutycycle}
 \mathSymbol{Vin}{V_{in}}{Input voltage}
 \mathSymbol{DeltaIleg}{\Delta I_{leg}}{Peak-to-peak leg current ripple}
-\mathSymbol{Ion}{I_{neg}}{Turn-on current}
+\mathSymbol{Ion}{I_{on}}{Turn-on current}
+\mathSymbol{Ion,max}{I_{on,max}}{Maximum turn-on current}
+\mathSymbol{Hdc}{H_{dc}}{DC field strength}
+\mathSymbol{mui}{\mu _i}{Initial Permeability}
+
+\newacronym{tcm}{TCM}{triangular current mode}
+\newacronym{zvs}{ZVS}{zero voltage switching}
 
 \begin{document}
 
@@ -79,10 +88,10 @@ coupled inductor, magnetic integration, planar inductor, triangular current mode
 
 \section{Introduction}
 With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Recently, many researchers proposed a \qty{48}{\V} distribution bus to reduce the cost of the wire assembly and/or reduce losses CITE. As most devices are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and spatial constraints. \par
-This motivates the use of wide-bandgap semiconductors which offer lower $R_{ds,on}$ and faster switching speeds compared to traditional Si-devices. By increasing the switching frequency, magnetic components and filters can be shrunk significantly enabling very high power densities. Beyond \qty{500}{\kHz}, hard-switched converters are generally unsuitable due to their large switching losses CITE. A lot of research has been done on resonant converters due to their high efficiency and compact design but those are unsuitable when a regulated output voltage is required over a wide input voltage range CITE. \par
+This motivates the use of wide-bandgap semiconductors which offer lower $R_{ds,on}$ and faster switching speeds compared to traditional Si-devices. By increasing the switching frequency, magnetic components and filters can be shrunk significantly enabling very high power densities. Beyond \qty{500}{\kHz} hard-switched converters are generally unsuitable due to their large switching losses CITE. A lot of research has been done on resonant converters due to their high efficiency and compact design but those are unsuitable when a regulated output voltage is required over a wide input voltage range CITE. \par
+The two phase coupled-inductor buck converter is a promising topology for these applications.
 
-%Rewrite this:
-This paper presents a highly compact interleaved buck converter for \qty{48}{\V} to \qty{12}{\V} conversion, delivering \qty{1}{\kW} of output power at a power density of \qty{80}{\kW\per\l} (\qty{1300}{\W\per\cubic\inch}). Using a custom planar inductor with distributed air-gaps, maximum power density is achieved while minimizing current crowding and inductor losses. 
+Blabla
 
 % 28.7mm x 45.35mm x 9.8mm = 12.2cm3
 
@@ -90,13 +99,40 @@ This paper presents a highly compact interleaved buck converter for \qty{48}{\V}
 
 %The design of the inductor becomes a real challenge in the \unit{\MHz}-range as proximity and skin-effect play a significant role and increase copper losses drastically. A custom coupled inductor using planar magnetics was developed to cope with that. Through the combination of \acp{ganfet}, the custom inductor and soft-switched operation the converter pushes the boundaries of power density and efficiency.
 
-ToDo: Operation with soft-switching! Some waveforms and schematic!
+\section{Coupled inductor buck converter in TCM}
+\subsection{Working principle}
+The topology of the two phase coupled-inductor buck converter is shown in figure \ref{fig:Schematic_BuckConfig_Coupled}.
+By integrating both inductors on the same core, the inductor volume can be shrunk significantly while the modulation remains the same: Both legs are switched \qty{180}{\deg} out of phase. If the ripple is more than twice the phase current, the leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. Only the small turn-off losses are observed now. This mode is called \ac{tcm} \cite{marxgutInterleavedTriangularCurrent2010}. %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
 
-\section{Impact of the Coupling Factor}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.85\columnwidth]{figures/Schematic_BuckConfig_Coupled.pdf}
+  \caption{Schematic of the Coupled Inductor Buck Converter.}
+  \label{fig:Schematic_BuckConfig_Coupled}
+\end{figure}
+
+\begin{figure}
+  \begin{subfigure}[c]{\columnwidth}
+      \centering
+      \input{figures/waveform_negCoupling.tikz}
+      \subcaption{Negative Coupling (\sbl{k} = -0.3)}
+      \label{fig:waveform_negCoupling}
+    \end{subfigure}
+    \begin{subfigure}[c]{\columnwidth}
+      \centering
+      \input{figures/waveform_posCoupling.tikz}
+      \subcaption{Positive Coupling (\sbl{k} = 0.3)}
+      \label{fig:waveform_posCoupling}
+    \end{subfigure}
+  \caption{Waveforms for positive and negative coupling. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same. ToDo: Make smaller!}
+  \label{fig:waveform_Coupling}
+\end{figure}
+
+\subsection{Impact of the Coupling Factor}
 The symmetrical coupled inductor consists of two identical coils that are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
 \begin{equation}
   \label{eq:StandardCoupling}
-  \begin{bmatrix} v_a \\ v_b \end{bmatrix} = \begin{bmatrix} 1 & sbl{k} \\ sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
+  \begin{bmatrix} v_a \\ v_b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
 \end{equation}
 with self-inductance $L_{self}$ and coupling-factor $k$. Note that $k$ can be positive or negative; the impact of that will be analyzed later.
 In order to simplify the equations and provide a more intuitive understanding, the equivalent circuit in figure TODO is introduced. Both circuits are electrically equivalent for
@@ -117,15 +153,15 @@ The voltage at the virtual central node is now only dependent of the two leg vol
   \end{aligned}
 \end{equation}
 From this, the differential equations for each interval can be easily calculated and afterwards the important converter parameters. An effective dutycycle \sbl{Deff} can be introduced with $\sbl{Deff} = D$ for $\sbl{D} \leq 0.5$ and $\sbl{Deff} = 1-D$ for $\sbl{D} > 0.5$.
-The output ripple is described by
+The output ripple is given by
 \begin{equation}
   \frac{2\sbl{Vin}}{\sbl{fs}(1+\sbl{k})\sbl{Lself}}\sbl{Deff}(\frac{1}{2}-\sbl{Deff}).
 \end{equation}
-The ripple in each leg which is important for soft-switching is given by
+The ripple in each leg which is important for soft-switching is
 \begin{equation}
   \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{fs}\sbl{Lself}} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr )  .
 \end{equation}
-Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong dependency of these parameters with dutycyle but interestingly, the leg ripple current is not that significantly influenced by the coupling-factor. As the coupling increases, \sbl{Lout} increases while \sbl{Lm} decreases causing a decrease in \sbl{iout} but an increase in \sbl{im}.
+Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong dependency of these parameters with dutycycle but interestingly, the leg ripple current is not that significantly influenced by the coupling-factor. As the coupling increases, \sbl{Lout} increases while \sbl{Lm} decreases causing a decrease in \sbl{iout} but an increase in \sbl{im}.
 \begin{figure}
   \centering
   \input{figures/outputRipple_new.tikz}
@@ -134,17 +170,32 @@ Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong depende
   \label{fig:OutputAndLegRipple}
 \end{figure}
 
-As mentioned before, for soft-switching \sbl{Ion} needs to be negative and generally needs to be below a certain value to guarantee a sufficiently short dead time which can be written as $\sbl{DeltaIleg} \geq \sbl{iout}+2\sbl{Ion}$. This is fulfilled for
+As mentioned before, for soft-switching \sbl{Ion} needs to be negative and generally needs to be below a certain value to guarantee a sufficiently short dead time which can be written as $\sbl{DeltaIleg} \geq \sbl{iout}+2\sbl{Ion,max}$. This is fulfilled for
 \begin{equation}
-    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout}+2\sbl{Ion})} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr ).
+    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout}+2\sbl{Ion,max})} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr ).
     \label{eq:ConditionZVS}
 \end{equation}
 
 
-
-
 \section{Inductor Design}
-Four-pole introduced by  \cite{huaUltrathinCoupledInductor2021}. 
+\subsection{Inductor geometry}
+Four different geometries were considered for this application:
+\begin{itemize}
+  \item Four-pole structure introduced by  \cite{huaUltrathinCoupledInductor2021}. 
+\end{itemize}
+
+Left: Double-PQ structure \cite{wangPCBWindingBasedCoupled2023}. Right: Four-pole structure \cite{huaUltrathinCoupledInductor2021}.
+
+\begin{figure}
+  \includegraphics[page=1, trim = 0cm 3cm 3cm 3cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \caption{Structure of the cores; Cut through the center, sie-view. First winding in red, second winding in blue.}
+  \label{fig:Core_Drawings}
+\end{figure}
+
+
+\subsection{Material limitations}
+High-frequency ferrite materials for power applications have some unique properties that differ from those for lower frequency applications. TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
+
 
 \section{Experimental prototype}
 \begin{itemize}
@@ -154,6 +205,11 @@ Four-pole introduced by  \cite{huaUltrathinCoupledInductor2021}.
     \item Incorporates internal vertical layout
 \end{itemize}
 
+
+A more detailed analysis of the losses will be given in the final paper including a calculated contribution of the dielectric volume loss as introduced by \cite{baumannInvestigationCorelossMechanisms2022}. 
+
+\bibliographystyle{IEEEtran}
+\bibliography{Paper_Bibliography}
 
 \end{document}
 
