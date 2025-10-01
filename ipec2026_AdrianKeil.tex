@@ -65,6 +65,7 @@
 \newacronym{tcm}{TCM}{triangular current mode}
 \newacronym{zvs}{ZVS}{zero voltage switching}
 \newacronym{pcb}{PCB}{printed circuit board}
+\newacronym{gan}{GaN}{Gallium Nitride}
 
 \begin{document}
 
@@ -78,7 +79,7 @@
 \maketitle
 
 \begin{abstract}
-The next generation of automotive vehicles and datacenters requires highly compact and efficient 48 V to 12 V point-of-load converters. This paper investigates the impact of coupling on the electrical properties of 2-phase buck converters operating in triangular current mode to achieve soft-switching. A novel planar inductor geometry with four poles and distributed air-gaps for operation beyond 1 MHz is presented that minimizes copper-losses from external proximity effect. An experimental prototype with 1 kW output achieves an impressive power density of 80 kW/l (1300 W/in³) and a peak efficiency of 96.5\%, demonstrating the efficacy of the inductor structure.
+The next generation of automotive vehicles and datacenters requires highly compact and efficient 48 V to 12 V point-of-load converters. This paper investigates the impact of coupling on the electrical properties of 2-phase buck converters operating in triangular current mode to achieve soft-switching. A novel planar inductor geometry with four poles and distributed air-gaps for operation beyond 1 MHz is presented that minimizes copper-losses from external proximity effect. An experimental prototype with 1 kW output achieves an impressive power density of 80 kW/l (1300 W/in³) and a peak efficiency of 96.3\%, demonstrating the efficacy of the inductor structure.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -88,10 +89,15 @@ coupled inductor, magnetic integration, planar inductor, triangular current mode
 
 \section{Introduction}
 With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Recently, many researchers proposed a \qty{48}{\V} distribution bus to reduce the cost of the wire assembly and/or reduce losses CITE. As most devices are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and spatial constraints. \par
-This motivates the use of wide-bandgap semiconductors which offer lower $R_{ds,on}$ and faster switching speeds compared to traditional Si-devices. By increasing the switching frequency, magnetic components and filters can be shrunk significantly enabling very high power densities. Beyond \qty{500}{\kHz} hard-switched converters are generally unsuitable due to their large switching losses CITE. A lot of research has been done on resonant converters due to their high efficiency and compact design but those are unsuitable when a regulated output voltage is required over a wide input voltage range CITE. \par
-The two phase coupled-inductor buck converter is a promising topology for these applications.
+With the rise of \ac{gan} power devices, switching frequencies in the MHz-range have become possible while gate- and switching loss are significantly reduced. However, beyond \qty{500}{\kHz} hard-switched converters become unsuitable due to their large turn-on losses CITE. Utilizing soft-switching, those losses are eliminated which allows operation in the MHz-range at excellent efficiencies. Resonant converters inherently operate in soft-switching but are unsuitable when a regulated output voltage is required over a wide input voltage range CITE. Traditional non-isolated converters such as buck or boost can also operate with soft-switching if the ripple is more than twice the average inductor current. Then, the converter enters \ac{tcm} and only the small turn-on losses remain.
+In soft-switched converters, magnetic components are usually the main contributor to losses CITE. Planar magnetics that use \ac{pcb} windings are well-suited for those applications as they allow elaborate winding structures, effective cooling due to the large area per volume and direct integration with the other circuitry. Lots of research was conducted for planar transformers but the design of compact and efficient planar inductors has its unique challenges due to the missing possibility for interleaving, the fringing of the air-gap and the DC-bias in the core.
+Utilizing multi-phase converters with coupled inductors is an effective way to reduce the volume and loss of the planar inductors as the flux can cancel out in certain areas. \par
+In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyrange{48}{12}{\V} conversion is studied. To minimize the overall volume, a target switching-frequency range of \qtyrange{1}{3}{\MHz} was selected. Compared to previous work, the low operating voltage requires an extremely low inductance whose design becomes particularly challenging due to the large phase current of \qty{40}{\A} and consequently over \qty{80}{\A} of ripple. Firstly, the effect of coupling on the electrical parameters is analyzed mathematically. Afterwards, different geometries for the singe-turn inductor are optimized using a novel winding geometry and dual air-gaps. The most promising geometry based on the four-pole structure is implemented in an experimental prototype. %which achieves an impressive power density of 80 kW/l (1300 W/in³) and a peak efficiency of \qty{96.3}{\percent}, demonstrating the efficacy of the novel inductor structure.
 
-Blabla
+%This motivates the use of wide-bandgap semiconductors which offer lower $R_{ds,on}$ and faster switching speeds compared to traditional Si-devices. By increasing the switching frequency, magnetic components and filters can be shrunk significantly enabling very high power densities. Beyond \qty{500}{\kHz} hard-switched converters are generally unsuitable due to their large switching losses CITE. A lot of research has been done on resonant converters as they inherently operate in soft-switching yielding high efficiencies and compact designs. However, those are unsuitable when a regulated output voltage is required over a wide input voltage range CITE. \par
+
+
+
 
 % 28.7mm x 45.35mm x 9.8mm = 12.2cm3
 
@@ -101,15 +107,14 @@ Blabla
 
 \section{Coupled inductor buck converter in TCM}
 \subsection{Working principle}
-The topology of the two phase coupled-inductor buck converter is shown in figure \ref{fig:Schematic_BuckConfig_Coupled}.
-By integrating both inductors on the same core, the inductor volume can be shrunk significantly while the modulation remains the same: Both legs are switched \qty{180}{\degree} out of phase. If the ripple is more than twice the phase current, the leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. Only the small turn-off losses are observed now. This mode is called \ac{tcm} \cite{marxgutInterleavedTriangularCurrent2010}. %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
-
-\begin{figure}
+\begin{figure} [b]
   \centering
   \includegraphics[width=0.85\columnwidth]{figures/Schematic_BuckConfig_Coupled.pdf}
   \caption{Schematic of the Coupled Inductor Buck Converter.}
   \label{fig:Schematic_BuckConfig_Coupled}
 \end{figure}
+The topology of the two phase coupled-inductor buck converter is shown in figure \ref{fig:Schematic_BuckConfig_Coupled}.
+By integrating both inductors on the same core, the inductor volume can be shrunk significantly while the modulation remains the same: Both legs are switched \qty{180}{\degree} out of phase. If the ripple is more than twice the phase current, the leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. Only the small turn-off losses are observed now. This mode is called \ac{tcm} \cite{marxgutInterleavedTriangularCurrent2010}. %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
 
 \begin{figure}
   \begin{subfigure}[c]{\columnwidth}
@@ -283,7 +288,7 @@ A total of 44 \qty{2.2}{\uF} 0805 \qty{100}{\V} X7R capacitors are used to stabi
 
 
 \subsection{Test results}
-The converter operates over the entire range as expected. The efficiency is shown in figure \ref{fig:} which reaches its maximum of \qty{96.5}{\percent} at around \qty{550}{\W}, demonstrating the efficacy of the inductor structure.
+The converter operates over the entire range as expected. The efficiency is shown in figure \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W}, demonstrating the efficacy of the inductor structure.
 
 A more detailed analysis of the losses will be given in the final paper including a calculated contribution of the dielectric volume loss as introduced by \cite{baumannInvestigationCorelossMechanisms2022}. 
 
