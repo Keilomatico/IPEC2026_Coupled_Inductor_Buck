@@ -34,7 +34,7 @@ ymajorgrids,
 %legend columns=-1
 %legend style={at={(1.02,0.5)}, anchor=west, legend cell align=left, align=left, draw=white!15!black},
 ]
-\addplot [color=mycolor1, line width=1.0pt]
+\addplot [color=mycolor1]
   table[row sep=crcr]{%
 0	0\\
 0.01	0.9408\\
@@ -140,7 +140,7 @@ ymajorgrids,
 };
 \addlegendentry{k= -0.5}
 
-\addplot [color=mycolor2, line width=1.0pt]
+\addplot [color=mycolor2]
   table[row sep=crcr]{%
 0	0\\
 0.01	0.6272\\
@@ -246,7 +246,7 @@ ymajorgrids,
 };
 \addlegendentry{k= -0.25}
 
-\addplot [color=mycolor3, line width=1.0pt]
+\addplot [color=mycolor3]
   table[row sep=crcr]{%
 0	0\\
 0.01	0.4704\\
@@ -352,7 +352,7 @@ ymajorgrids,
 };
 \addlegendentry{k= 0}
 
-\addplot [color=mycolor4, line width=1.0pt]
+\addplot [color=mycolor4]
   table[row sep=crcr]{%
 0	0\\
 0.01	0.37632\\
@@ -458,7 +458,7 @@ ymajorgrids,
 };
 \addlegendentry{k= 0.25}
 
-\addplot [color=mycolor5, line width=1.0pt]
+\addplot [color=mycolor5]
   table[row sep=crcr]{%
 0	0\\
 0.01	0.3136\\

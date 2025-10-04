@@ -152,19 +152,19 @@ The voltage at the virtual central node is now only dependent of the two leg vol
 \begin{equation}
   \label{eq:TransformerModel}
   \begin{aligned}
-    \frac{d\sbl{iout}}{dt} &= \frac{1}{\sbl{Lout}} (\frac{\sbl{v1} + \sbl{v2}}{2}-\sbl{vout}) \\
-    \frac{d\sbl{im}}{dt} &= \frac{1}{\sbl{Lout}} (\frac{\sbl{v1} - \sbl{v2}}{2}) \\
+    \frac{d\sbl{iout}}{dt} &= \frac{1}{\sbl{Lout}} \left (\frac{\sbl{v1} + \sbl{v2}}{2}-\sbl{vout} \right ) \\
+    \frac{d\sbl{im}}{dt} &= \frac{1}{\sbl{Lout}} \left (\frac{\sbl{v1} - \sbl{v2}}{2} \right ) \\
     \text{with} \quad \sbl{iout} &= \sbl{i1} + \sbl{i2} \quad \text{and} \quad \sbl{im} = \sbl{i1} - \sbl{i2}
   \end{aligned}
 \end{equation}
 From this, the differential equations for each interval can be easily calculated and afterwards the important converter parameters. An effective dutycycle \sbl{Deff} can be introduced with $\sbl{Deff} = D$ for $\sbl{D} \leq 0.5$ and $\sbl{Deff} = 1-D$ for $\sbl{D} > 0.5$.
 The output ripple is given by
 \begin{equation}
-  \frac{2\sbl{Vin}}{\sbl{fs}(1+\sbl{k})\sbl{Lself}}\sbl{Deff}(\frac{1}{2}-\sbl{Deff}).
+  \frac{2\sbl{Vin}}{\sbl{fs}(1+\sbl{k})\sbl{Lself}}\sbl{Deff}\left (\frac{1}{2}-\sbl{Deff} \right ).
 \end{equation}
 The ripple in each leg which is important for soft-switching is
 \begin{equation}
-  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{fs}\sbl{Lself}} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr )  .
+  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{fs}\sbl{Lself}} \left (\frac{2}{1+\sbl{k}} \left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right )  .
 \end{equation}
 Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong dependency of these parameters with dutycycle but interestingly, the leg ripple current is not that significantly influenced by the coupling-factor. As the coupling increases, \sbl{Lout} increases while \sbl{Lm} decreases causing a decrease in \sbl{iout} but an increase in \sbl{im}.
 \begin{figure}
@@ -177,7 +177,7 @@ Both are shown in figure \ref{fig:OutputAndLegRipple}. There is a strong depende
 
 As mentioned before, for soft-switching \sbl{Ion} needs to be negative and generally needs to be below a certain value to guarantee a sufficiently short dead time which can be written as $\sbl{DeltaIleg} \geq \sbl{iout}+2\sbl{Ion,max}$. This is fulfilled for
 \begin{equation}
-    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout}+2\sbl{Ion,max})} \Bigl (\frac{2}{1+\sbl{k}}(0.5-\sbl{Deff}) + \frac{1}{1-\sbl{k}} \Bigr ).
+    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout}+2\sbl{Ion,max})} \left (\frac{2}{1+\sbl{k}}\left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right ).
     \label{eq:ConditionZVS}
 \end{equation}
 
@@ -198,7 +198,7 @@ High-frequency ferrite materials for power applications have some unique propert
 From figure \ref{fig:OutputAndLegRipple} there is no clear winner between positive and negative coupling. From the point of inductor design however, there is a very notable difference in the DC-flux distribution: For negative coupling, it is distributed very uniformly across the core resulting in a low peak field strength. For positive coupling, the DC-flux circulates between the two pillars resulting in a large imbalance in DC-flux between the inner and outer part of the core as shown in figure \ref{fig:Fluxposneg}. The peak field strength is much higher and as the core has to be designed with respect to the \sbl{Hdc} limit, this means thick top and bottom even though this area is not needed on the outside. As a result, the core gets much larger without having a performance improvement. Therefore, negative coupling is clearly the better choice. \par  
 
 \begin{figure}
-  \includegraphics[page=5, trim = 0cm 1cm 3.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=3, trim = 0cm 1cm 3.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Flux-Distribution for negative and positive coupling for a DC phase current of \qty{40}{\A} and \qty{100}{\A} of ripple. With negative coupling, the two windings generate an opposing magnetomotive force for DC resulting in a low flux and relatively uniform distribution. For positive coupling, the two magnetomotive forces are driving a DC-flux in the same direction causing a large flux that only circulates between the two windings. For the fundamental, the flux-regions are swapped.}
   \label{fig:Fluxposneg}
 \end{figure}
@@ -273,7 +273,7 @@ A comparison of the core structures is shown in table \ref{tab:InductorCompariso
 \subsection{Hardware implementation}
 \begin{figure}
   \centering
-  \includegraphics[page=4, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=2, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Fully assembled prototype (without heatspreader).  The converter area shown in orange is 45 x 29 x \qty{9.5}{\mm}. Outside of this area only the connectors for power and programming are placed as well as a protection diode and the programming resistors.}
   \label{fig:PrototypePicture}
 \end{figure}
