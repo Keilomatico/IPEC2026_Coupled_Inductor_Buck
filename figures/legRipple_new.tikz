@@ -137,7 +137,7 @@ legend columns=3
 0.99	0.630400000000001\\
 1	0\\
 };
-\addlegendentry{k= -0.5}
+\addlegendentry{$\sbl{k}=-0.5$}
 
 \addplot [color=mycolor2]
   table[row sep=crcr]{%
@@ -243,7 +243,7 @@ legend columns=3
 0.99	0.5056\\
 1	0\\
 };
-\addlegendentry{k= -0.25}
+\addlegendentry{$\sbl{k}=-0.25$}
 
 \addplot [color=mycolor3]
   table[row sep=crcr]{%
@@ -349,7 +349,7 @@ legend columns=3
 0.99	0.4752\\
 1	0\\
 };
-\addlegendentry{k= 0.00}
+\addlegendentry{$\sbl{k}=0$}
 
 \addplot [color=mycolor4]
   table[row sep=crcr]{%
@@ -455,7 +455,7 @@ legend columns=3
 0.99	0.508160000000001\\
 1	0\\
 };
-\addlegendentry{k= 0.25}
+\addlegendentry{$\sbl{k}=0.25$}
 
 \addplot [color=mycolor5]
   table[row sep=crcr]{%
@@ -561,7 +561,7 @@ legend columns=3
 0.99	0.636800000000001\\
 1	0\\
 };
-\addlegendentry{k= 0.5}
+\addlegendentry{$\sbl{k}=0.5$}
 
 \addplot [color=mycolor6, dashed]
   table[row sep=crcr]{%

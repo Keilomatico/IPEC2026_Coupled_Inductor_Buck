@@ -39,28 +39,28 @@
     \newglossaryentry{#1}{symbol={\ensuremath{#2}}, name={#3}, description={}, sort={#1}}
 }
 
-\mathSymbol{Lself}{L_{self}}{Self-inductance of each coil of a symmetrical coupled inductor}
+\mathSymbol{Lself}{L_\mathrm {self}}{Self-inductance of each coil of a symmetrical coupled inductor}
 \mathSymbol{k}{k}{Coupling-factor of the coupled inductor}
-\mathSymbol{Lm}{L_m}{Magnetizing inductance in the transformer model}
-\mathSymbol{Lout}{L_{out}}{Output inductance in the transformer model}
-\mathSymbol{im}{i_m}{Magnetizing current in the transformer model}
-\mathSymbol{iout}{i_{out}}{Output current}
-\mathSymbol{v1}{v_1}{Voltage at the switch-node leg 1}
-\mathSymbol{v2}{v_2}{Voltage at the switch-node leg 2}
-\mathSymbol{i1}{i_1}{Current of leg 1}
-\mathSymbol{i2}{i_2}{Current of leg 2}
-\mathSymbol{vout}{v_{out}}{Output voltage}
-\mathSymbol{Ts}{T_s}{Switching period}
-\mathSymbol{fs}{f_s}{Switching frequency}
-\mathSymbol{Deff}{D_{eff}}{Effective dutycycle}
+\mathSymbol{Lm}{L_\mathrm m}{Magnetizing inductance in the transformer model}
+\mathSymbol{Lout}{L_\mathrm {out}}{Output inductance in the transformer model}
+\mathSymbol{im}{i_\mathrm m}{Magnetizing current in the transformer model}
+\mathSymbol{iout}{i_\mathrm {out}}{Output current}
+\mathSymbol{v1}{v_\mathrm 1}{Voltage at the switch-node leg 1}
+\mathSymbol{v2}{v_\mathrm 2}{Voltage at the switch-node leg 2}
+\mathSymbol{i1}{i_\mathrm 1}{Current of leg 1}
+\mathSymbol{i2}{i_\mathrm 2}{Current of leg 2}
+\mathSymbol{vout}{v_\mathrm {out}}{Output voltage}
+\mathSymbol{Ts}{T_\mathrm s}{Switching period}
+\mathSymbol{fs}{f_\mathrm s}{Switching frequency}
+\mathSymbol{Deff}{D_\mathrm {eff}}{Effective dutycycle}
 \mathSymbol{D}{D}{Dutycycle}
-\mathSymbol{Vin}{V_{in}}{Input voltage}
-\mathSymbol{DeltaIleg}{\Delta I_{leg}}{Peak-to-peak leg current ripple}
-\mathSymbol{Ion}{I_{on}}{Turn-on current}
-\mathSymbol{Ion,max}{I_{on,max}}{Maximum turn-on current}
-\mathSymbol{Hdc}{H_{dc}}{DC field strength}
-\mathSymbol{mui}{\mu _i}{Initial Permeability}
-\mathSymbol{Pout}{P_{out}}{Output Power}
+\mathSymbol{Vin}{V_\mathrm {in}}{Input voltage}
+\mathSymbol{DeltaIleg}{\Delta I_\mathrm {leg}}{Peak-to-peak leg current ripple}
+\mathSymbol{Ion}{I_\mathrm {on}}{Turn-on current}
+\mathSymbol{Ion,max}{I_\mathrm {on,max}}{Maximum turn-on current}
+\mathSymbol{Hdc}{H_\mathrm {dc}}{DC field strength}
+\mathSymbol{mui}{\mu _\mathrm i}{Initial Permeability}
+\mathSymbol{Pout}{P_\mathrm {out}}{Output Power}
 
 \newacronym{tcm}{TCM}{triangular current mode}
 \newacronym{zvs}{ZVS}{zero voltage switching}
@@ -137,9 +137,9 @@ By integrating both inductors on the same core, the inductor volume can be shrun
 The symmetrical coupled inductor consists of two identical coils that are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
 \begin{equation}
   \label{eq:StandardCoupling}
-  \begin{bmatrix} v_a \\ v_b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
+  \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
 \end{equation}
-with self-inductance $L_{self}$ and coupling-factor $k$. Note that $k$ can be positive or negative; the impact of that will be analyzed later.
+with self-inductance \sbl{Lself} and coupling-factor \sbl{k}. Note that \sbl{k} can be positive or negative; the impact of that will be analyzed later.
 In order to simplify the equations and provide a more intuitive understanding, the equivalent circuit in figure TODO is introduced. Both circuits are electrically equivalent for
 \begin{equation}
   \label{eq:LoutandLmfromk}
