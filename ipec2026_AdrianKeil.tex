@@ -189,7 +189,7 @@ As mentioned before, for soft-switching \sbl{Ion} needs to be negative and gener
   \label{fig:Core_Drawings}
 \end{figure}
 Four different geometries, two coupled, and two uncoupled ones for reference, were considered for this application as shown in figure \ref{fig:Core_Drawings}. The Double-PQ structure was originally introduced by \cite{wangPCBWindingBasedCoupled2023}. The four-pole structure is very similar but omits the central pole which creates separate paths for DC and fundamental flux \cite{huaUltrathinCoupledInductor2021}. Both of these geometries were previously used with a two-piece core that only has air-gaps at the top. The dual air-gaps are introduced here. The third geometry is basically an EE-Core but instead of one central gap two gaps are used. Lastly, a vertical gap geometry is investigated which can partly compensate the internal proximity effect \cite{schaferNovelHighlyEfficient2020}. %A notable downside of the vertical gap is that it prohibits cooling with conductive materials from the top and bottom, which is usually a big advantage of planar inductors, due to the external flux in this area. 
-\par All designs use a single turn with all layers in parallel. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing.
+\par All designs use a single turn with all six layers in parallel. Six layers were chosen due to the significantly cheaper manufacturing cost compared to higher layer counts. The inner layers have a thickness of \qty{70}{\um} while the outer ones have only \qty{35}{\um}, due to the tight spacing of the selected gate-driver which required a \qty{35}{\um} outer layer at the selected manufacturer to meet clearance constraints. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing.
 
 \subsection{Material limitations}
 High-frequency ferrite materials for power applications have some unique properties that differ from those for lower frequency applications. TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
@@ -209,9 +209,9 @@ For validation, the design was also transformed into an axisymmetric structure (
 
 \subsection{Split air-gap and optimized windings}
 \begin{figure}
-  \includegraphics[page=2, trim = 0cm 7cm 13cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
-  \caption{Comparison of convential air-gap with the optimized version. Because all layers are in parallel the current crowds in areas of large field-strength. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
-  \label{fig:Core_Drawings}
+  \includegraphics[page=1, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figure_AirGap.pdf}
+  \caption{Field and current distribution for different approaches. Because all layers are in parallel the current crowds in areas of large H. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
+  \label{fig:OptimizedGap}
 \end{figure}
 
 \begin{table}
