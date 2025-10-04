@@ -184,7 +184,7 @@ As mentioned before, for soft-switching \sbl{Ion} needs to be negative and gener
 \section{Inductor Design}
 \subsection{Inductor geometry}
 \begin{figure}
-  \includegraphics[page=1, trim = 0cm 3cm 3cm 3cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=1, trim = 0cm 7cm 4.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Structure of the cores; Cut through the center, sie-view. First winding in red, second winding in blue.}
   \label{fig:Core_Drawings}
 \end{figure}
@@ -198,12 +198,8 @@ High-frequency ferrite materials for power applications have some unique propert
 From figure \ref{fig:OutputAndLegRipple} there is no clear winner between positive and negative coupling. From the point of inductor design however, there is a very notable difference in the DC-flux distribution: For negative coupling, it is distributed very uniformly across the core resulting in a low peak field strength. For positive coupling, the DC-flux circulates between the two pillars resulting in a large imbalance in DC-flux between the inner and outer part of the core as shown in figure \ref{fig:Fluxposneg}. The peak field strength is much higher and as the core has to be designed with respect to the \sbl{Hdc} limit, this means thick top and bottom even though this area is not needed on the outside. As a result, the core gets much larger without having a performance improvement. Therefore, negative coupling is clearly the better choice. \par  
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{figures/DC_negCoupling.png}
-  \hfill
-  \vphantom{0.2mm}
-  \includegraphics[width=\columnwidth]{figures/DC_posCoupling.png} \\
-  \caption{DC-Flux for negative coupling (top) and positive coupling (bottom). With negative coupling, the two windings generate an opposing magnetomotive force resulting in a low flux and relatively uniform distribution. For positive coupling, the two magnetomotive forces are driving a flux in the same direction causing a large flux that only circulates between the two windings. This requires a much larger core to get the same losses.}
+  \includegraphics[page=5, trim = 0cm 1cm 3.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \caption{Flux-Distribution for negative and positive coupling for a DC phase current of \qty{40}{\A} and \qty{100}{\A} of ripple. With negative coupling, the two windings generate an opposing magnetomotive force for DC resulting in a low flux and relatively uniform distribution. For positive coupling, the two magnetomotive forces are driving a DC-flux in the same direction causing a large flux that only circulates between the two windings. For the fundamental, the flux-regions are swapped.}
   \label{fig:Fluxposneg}
 \end{figure}
 
