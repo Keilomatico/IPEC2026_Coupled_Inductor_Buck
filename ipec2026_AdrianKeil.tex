@@ -90,7 +90,7 @@ coupled inductor, magnetic integration, planar inductor, triangular current mode
 
 \section{Introduction}
 With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Moving to a \qty{48}{\V} distribution bus reduces the cost of the wire assembly and losses \cite{kumawatComprehensiveStudyAutomotive2019}. As most devices are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and overall build volume. \par
-With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing the size of the magnetic components \cite{weitzHighFrequencyResonant2023}. At such high frequencies, hard-switched converters are inapt due to their large turn-on losses. Utilizing soft-switching, those losses are eliminated which allows operation in the MHz-range at excellent efficiencies \cite{wangReviewHighFrequency2020}. Resonant converters inherently operate in soft-switching but are unsuitable when a regulated output voltage is required over a wide input voltage range. Traditional non-isolated converters such as buck or boost can also operate with soft-switching if the ripple is more than twice the average inductor current. Then, the converter enters \ac{tcm} and only the small turn-on losses remain \cite{marxgutInterleavedTriangularCurrent2010}.
+With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing the size of the magnetic components \cite{weitzHighFrequencyResonant2023}. At such high frequencies, hard-switched converters are inapt due to their large turn-on losses. Utilizing soft-switching, those losses are eliminated which allows operation in the MHz-range at excellent efficiencies \cite{wangReviewHighFrequency2020}. Resonant converters inherently operate in soft-switching but are unsuitable when a regulated output voltage is required over a wide input voltage range. Traditional non-isolated converters such as buck or boost can also operate with soft-switching utilizing \ac{tcm} as explained in the next section and only the small turn-on losses remain \cite{marxgutInterleavedTriangularCurrent2010}.
 In soft-switched converters, magnetic components are often the main contributor to losses. Planar magnetics that use \ac{pcb} windings are well-suited for those applications as they allow elaborate winding structures, effective cooling due to the large area per volume and direct integration with the other circuitry \cite{wangPCBWindingBasedCoupled2023, liHighFrequencyHigh2018, schaferNovelHighlyEfficient2020, caiOptimalDesignMegahertz2020}. Lots of research was conducted for planar transformers but the design of compact and efficient planar inductors has its unique challenges due to the missing possibility for interleaving, the fringing of the air-gap and the DC-bias in the core.
 Utilizing multi-phase converters with coupled inductors is an effective way to reduce the volume and loss of the planar inductors as the flux can cancel out in certain areas \cite{huaUltrathinCoupledInductor2021}. \par
 In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyrange{48}{12}{\V} conversion is studied. To minimize the overall volume, a target switching-frequency range of \qtyrange{1}{3}{\MHz} was selected. Compared to previous work \cite{nan1MHzBidirectional2016, dongInvestigationMultiphaseCoupledInductor2009, shaZVSInterleavedSynchronousBuck2022, huaUltrathinCoupledInductor2021, wangPCBWindingBasedCoupled2023}, the low operating voltage requires a very low inductance whose design becomes particularly challenging due to the large phase current of \qty{40}{\A} and consequently over \qty{80}{\A} of ripple. Firstly, the effects of coupling on the electrical parameters are analyzed mathematically. Afterwards, different geometries for the single-turn inductor are optimized using a novel winding geometry and dual air-gaps. The most promising geometry based on the four-pole structure is implemented in an experimental prototype. %which achieves an impressive power density of 80 kW/l (1300 W/in³) and a peak efficiency of \qty{96.3}{\percent}, demonstrating the efficacy of the novel inductor structure.
@@ -105,34 +105,56 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
 
 \section{Coupled inductor buck converter in TCM}
 \subsection{Working principle}
+% \begin{figure} [b]
+%   \centering
+%   \includegraphics[width=0.85\columnwidth]{figures/Schematic_BuckConfig_Coupled.pdf}
+%   \caption{Schematic of the Coupled Inductor Buck Converter.}
+%   \label{fig:Schematic_BuckConfig_Coupled}
+% \end{figure}
 \begin{figure} [b]
   \centering
-  \includegraphics[width=0.85\columnwidth]{figures/Schematic_BuckConfig_Coupled.pdf}
+  \includegraphics[width=0.9\columnwidth]{figures/Inkscape/Schematic.pdf}
   \caption{Schematic of the Coupled Inductor Buck Converter.}
   \label{fig:Schematic_BuckConfig_Coupled}
 \end{figure}
 \begin{figure}
-  \includegraphics[page=4, trim = 0cm 13.5cm 20cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  %\includegraphics[page=4, trim = 0cm 13.5cm 20cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[width=0.9\columnwidth]{figures/Inkscape/Transformer-Model.pdf}
   \caption{The coupled inductor can be described with a self-inductance \sbl{Lself} and coupling factor \sbl{k} or by using an equivalent circuit consisting of an ideal 1:1 transformer with magnetizing inductance \sbl{Lm} and common output inductance \sbl{Lout}.}
   \label{fig:InductorModel}
 \end{figure}
-The topology of the two phase coupled-inductor buck converter is shown in Figure \ref{fig:Schematic_BuckConfig_Coupled} and waveforms for positive and negative coupling are shown in Figure \ref{fig:waveform_Coupling}.
-By integrating both inductors on the same core, the inductor volume can be shrunk significantly while the modulation remains the same: Both legs are switched \qty{180}{\degree} out of phase. If the ripple is more than twice the phase current, the converter enters \ac{tcm}: The leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. Only the small turn-off losses are observed now \cite{marxgutInterleavedTriangularCurrent2010}.  %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
+The topology of the two phase coupled-inductor buck converter is shown in Figure \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs are switched \qty{180}{\degree} out of phase. When the leg 2 is pulled high, the current in leg 1 is also affected as shown in Figure \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. The converter operates at very high ripple, more than twice the phase current such that the leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. This mode is called \ac{tcm}. Only the small turn-off losses are observed now \cite{marxgutInterleavedTriangularCurrent2010}.  %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
 
+% \begin{figure}
+%   \begin{subfigure}[c]{\columnwidth}
+%       \centering
+%       \input{figures/waveform_negCoupling.tikz}
+%       \subcaption{Negative Coupling (\sbl{k} = -0.3)}
+%       \label{fig:waveform_negCoupling}
+%     \end{subfigure}
+%     \begin{subfigure}[c]{\columnwidth}
+%       \centering
+%       \input{figures/waveform_posCoupling.tikz}
+%       \subcaption{Positive Coupling (\sbl{k} = 0.3)}
+%       \label{fig:waveform_posCoupling}
+%     \end{subfigure}
+%   \caption{Waveforms for positive and negative coupling. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same. ToDo: Make smaller!}
+%   \label{fig:waveform_Coupling}
+% \end{figure}
 \begin{figure}
-  \begin{subfigure}[c]{\columnwidth}
+  \begin{subfigure}[c]{0.51\columnwidth}
       \centering
-      \input{figures/waveform_negCoupling.tikz}
-      \subcaption{Negative Coupling (\sbl{k} = -0.3)}
+      \includegraphics[width=\textwidth]{figures/Inkscape/Waveforms_negative.pdf}
+      \subcaption{Negative Coupling}
       \label{fig:waveform_negCoupling}
     \end{subfigure}
-    \begin{subfigure}[c]{\columnwidth}
+    \begin{subfigure}[c]{0.48\columnwidth}
       \centering
-      \input{figures/waveform_posCoupling.tikz}
-      \subcaption{Positive Coupling (\sbl{k} = 0.3)}
+      \includegraphics[width=\textwidth]{figures/Inkscape/Waveforms_positive.pdf}
+      \subcaption{Positive Coupling}
       \label{fig:waveform_posCoupling}
     \end{subfigure}
-  \caption{Waveforms for positive and negative coupling. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same. ToDo: Make smaller!}
+  \caption{Waveforms for positive and negative coupling. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same.}
   \label{fig:waveform_Coupling}
 \end{figure}
 
@@ -185,10 +207,10 @@ As mentioned before, for soft-switching \sbl{Ion} needs to be negative and gener
   \label{fig:Core_Drawings}
 \end{figure}
 Four different geometries, two coupled, and two uncoupled ones for reference, were considered for this application as shown in Figure \ref{fig:Core_Drawings}. The Double-PQ structure was originally introduced by \cite{wangPCBWindingBasedCoupled2023} and basically combines two EQ-cores placed next to each other. The four-pole structure is very similar but omits the central pole which creates separate paths for common-mode and differential-mode flux \cite{huaUltrathinCoupledInductor2021}. Both of these geometries were previously used with a two-piece core that only has air-gaps at the top. The dual air-gaps shown in Figure \ref{fig:Core_Drawings} are introduced in this work. The third geometry is basically an EE-Core but instead of one central gap, two gaps are used. Lastly, the vertical gap geometry proposed by \cite{schaferNovelHighlyEfficient2020} is investigated which can partly compensate the internal proximity effect. %A notable downside of the vertical gap is that it prohibits cooling with conductive materials from the top and bottom, which is usually a big advantage of planar inductors, due to the external flux in this area. 
-\par All designs use a single turn with all six layers in parallel. Six layers were chosen due to the significantly cheaper manufacturing cost compared to higher layer counts. The inner layers have a thickness of \qty{70}{\um} while the outer ones have only \qty{35}{\um}, due to the tight spacing of the selected gate-driver which required a \qty{35}{\um} outer layer at the selected manufacturer to meet clearance constraints. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing.
+\par All designs use a single turn with all six layers in parallel which is very different from their original designs. Six layers were chosen due to the significantly cheaper manufacturing cost compared to higher layer counts. The inner layers have a thickness of \qty{70}{\um} while the outer ones have only \qty{35}{\um}, due to the tight spacing of the selected gate-driver which required a \qty{35}{\um} outer layer at the selected manufacturer to meet clearance constraints. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing.
 
 \subsection{Material limitations}
-High-frequency ferrite materials for power applications have some unique properties that differ from those for lower frequency applications. TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
+High-frequency ferrite materials for power applications have some unique properties that differ from those for lower frequency applications. TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double\footnote{This effect is even more pronounced in NiZn materials which can be permanently damaged by large fields.} \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
 
 \subsection{Positive vs negative coupling}
 \begin{figure}
@@ -205,7 +227,7 @@ High-frequency ferrite materials for power applications have some unique propert
 \end{figure}
 Equation (\ref{eq:DeltaIout}) and (\ref{eq:DeltaIleg}) are plotted in Figure \ref{fig:OutputAndLegRipple} for positive and negative coupling-factors. While a strong positive coupling decreases \sbl{DeltaIout} it increases \sbl{DeltaIleg}. This is intuitive when looking at Equation (\ref{eq:LoutandLmfromk}): A positive coupling factor shifts inductance from the magnetizing to the output inductance, resulting in lower output current ripple but higher magnetizing current ripple. This means positive coupling require a larger \sbl{Lself} to achieve the same \sbl{Ion} if all other parameters remain the same. \par
 Overall, positive coupling is slightly beneficial from an electrical point of view as it allows the usage of a larger \sbl{Lself} resulting in very low \sbl{DeltaIout}. However, in order to increase \sbl{Lself}, the air-gap has to be reduced, resulting in a higher flux-density and consequently higher core-losses or the number of windings has to be increased resulting in higher copper-loss.
-Furthermore, there is a very notable difference in the flux distribution as shown in Figure \ref{fig:Fluxposneg}: For negative coupling, the two windings generate an opposing magnetomotive force at DC, resulting in a low flux and that circulates through the outer air-gaps. For positive coupling, the two magnetomotive forces are driving a DC-flux in the same direction causing a large flux that only circulates between the two windings where the reluctance is much lower. The peak flux-density is almost three times higher for positive coupling and as the core should be designed with respect to the \sbl{Hdc} limit, this means thicker top and bottom areas would be needed. Therefore, negative coupling is selected for this application\footnote{Note that for lower frequency materials which are less affected by DC flux, the picture would change: Those designs would likely benefit from positive coupling as the flux-density at the fundamental is reduced.}. For the fundamental, the flux-paths are swapped compared to DC. For all even harmonics the flux flows in the same path as in Figure \ref{fig:Fluxposneg}a) and b) whereas for odd harmonics it flows as in Figure \ref{fig:Fluxposneg}c) and d).
+Furthermore, there is a very notable difference in the flux distribution as shown in Figure \ref{fig:Fluxposneg}: For negative coupling, the two windings generate an opposing magnetomotive force at DC, resulting in a low flux and that circulates through the outer air-gaps. For positive coupling, the two magnetomotive forces are driving a DC-flux in the same direction causing a large flux that only circulates between the two windings where the reluctance is much lower. The peak flux-density is almost three times higher for positive coupling and as the core should be designed with respect to the \sbl{Hdc} limit, this means thicker top and bottom areas would be needed. Therefore, negative coupling is selected for this application\footnote{Note that for lower frequency materials which are less affected by DC flux, the picture would change: Those designs would likely benefit from positive coupling as the flux-density at the fundamental is reduced.}. For the fundamental (and all other odd harmonics), the flux-paths are swapped compared to DC (and even harmonics) as shown in \ref{fig:Fluxposneg}c) and d).
 
 \subsection{Simulation Process}
 For the simulation, the open-source 2D FEM software FEMM was used due to its high speed and easy integration with Matlab. As the core-structures are neither planar nor axisymmetric, the designs were first transformed to a planar structure. All cross-sectional areas are kept the same and the depth of the design is determined by the length of the winding\footnote{As the current does not flow in the middle of the winding but closer to its center due to the shorter length and the magnetic field, the circumference taken not from the middle of the winding but closer to the inside}. \\
@@ -214,7 +236,7 @@ For validation, the design was also transformed into an axisymmetric structure (
 \subsection{Split air-gap and optimized windings}
 \begin{figure}
   \includegraphics[page=1, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figure_AirGap.pdf}
-  \caption{Field and current distribution for different approaches. Because all layers are in parallel the current crowds in areas of large H. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
+  \caption{Field and current distribution for different approaches. Because all layers are in parallel the current crowds in areas of large field-strength. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
   \label{fig:OptimizedGap}
 \end{figure}
 
