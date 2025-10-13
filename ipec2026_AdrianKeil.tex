@@ -18,6 +18,8 @@
 \usepackage[font={footnotesize}]{caption}          % Necessary for subcaption
 \usepackage{subcaption}       % Multiple figures in one
 \usepackage{tabularx}
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
 
 \usepackage{siunitx}                % Units; e.g. prevents linebreak between number and unit
 \sisetup{
@@ -227,22 +229,23 @@ For validation, the design was also transformed into an axisymmetric structure (
 \end{figure}
 
 \begin{table}
-  \centering
   \caption{Comparison of the size and loss of the optimized pillar and windings for the four-pole design.}
-    \begin{tabular}{|p{0.35\columnwidth}|p{0.2\columnwidth}|p{0.25\columnwidth}|}
-    \hline  
-      & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
-    \hline
-    \hline
+  \label{tab:OptimizationPQ}
+  \centering
+  \begin{tblr}{
+      colspec={Xll},
+      row{1}={font=\bfseries},
+      column{1}={font=\itshape},
+      row{even}={bg=gray!10},
+    }
+    & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
+    \toprule
     Original design & 5.8 & 7.0 \\
-    \hline
     Air-Gap on top and bottom & 5.5 & 5.7 \\
-    \hline
     Air-Gap on top and bottom, curved windings & 5.3 & 5.0 \\
-    \hline
-    \end{tabular}%
-  \label{tab:OptimizationPQ}%
-\end{table}%
+    \bottomrule
+  \end{tblr}
+\end{table}
 
 The external proximity effect caused by the air-gap plays an important role for the current distribution and consequently the losses of this high-frequency inductor. The field-strength at the top of the windings is large and almost zero at the bottom. As a result, the AC current is only flowing in the top layers. By centering the pillar vertically in the window such that there is an equal air-gap on the top and on the bottom, the field-strength is distributed much more uniformly and current flows in the top and bottom layers. This results in a \qty{20}{\percent} reduction in losses, which can be reduced even further by using curved windings as shown in Table \ref{tab:OptimizationPQ}.
 
@@ -262,25 +265,26 @@ The design with vertical air-gap showed a significantly lower loss compared to a
 
 \paragraph{Comparison of Core Structures}
 A comparison of the core structures is shown in Table \ref{tab:InductorComparison}. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed the lowest losses and volume and was chosen for the implementation. The inductor design is shown in figure \ref{fig:Four-Pole-3d}.
+
 \begin{table}
-  \centering
   \caption{Comparison of the size and loss of the different core structures for \qty{1.5}{\MHz} respecting the \sbl{Hdc} limit.}
-    \begin{tabularx}{\columnwidth}{|l|X|X|X|X|}
-      \hline
-          & {Total Area [\unit{\cm\squared}]} & {Height [\unit{\cm}]} & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
-      \hline
-      \hline
+  \label{tab:InductorComparison}
+  \centering
+  \begin{tblr}{
+      colspec={lXXXX},
+      row{1}={font=\bfseries},
+      column{1}={font=\itshape},
+      row{even}={bg=gray!10},
+    }
+    & {Total Area [\unit{\cm\squared}]} & {Height [\unit{\cm}]} & {Volume [\unit{\cubic\cm}]} & {Copper Loss [\unit{\W}]} \\
+    \toprule
       Four-Pole & 5.5 & 0.9 & 5.3 & 5.0 \\
-      \hline
       Double PQ & 6.2 & 0.9 & 5.5 & 5.2 \\
-      \hline
       Vertical gap & 8.0 & 0.7 & 5.8 & 5.6 \\
-      \hline
       UU core & 8.1 & 1.1 & 8.9 & 6.0 \\
-      \hline
-    \end{tabularx}%
-  \label{tab:InductorComparison}%
-\end{table}%
+    \bottomrule
+  \end{tblr}
+\end{table}
 
 \begin{figure}
   \centering
@@ -297,13 +301,18 @@ A comparison of the core structures is shown in Table \ref{tab:InductorCompariso
   \caption{Fully assembled prototype (without heatspreader).  The converter area shown in orange is 45 x 29 x \qty{9.5}{\mm}. Outside of this area only the connectors for power and programming are placed as well as a protection diode and the programming resistors. ToDo: White Background and place match next to it.}
   \label{fig:PrototypePicture}
 \end{figure}
+
 \begin{table}
-  \centering
   \caption{Overview of the main hardware components.}
-  \begin{tabular}{|l|l|}
-    \hline
+  \label{tab:Hardware}
+  \centering
+  \begin{tblr}{
+      colspec={ll},
+      row{1}={font=\bfseries},
+      row{even}={bg=gray!10},
+    }
     Component & Description \\
-    \hline \hline
+    \toprule
     $\mathrm C_\mathrm{in}$         & 44x \qty{2.2}{\uF} \qty{100}{\V} X7R (\qty{20}{\uF} at \qty{48}{\V})  \\
     $\mathrm C_\mathrm{out}$        & 16x \qty{2.2}{\uF} \qty{100}{\V} X7R (\qty{33}{\uF} at \qty{12}{\V}) \\
     GaN-FETs          & Infineon IGC025S08S1            \\
@@ -311,10 +320,11 @@ A comparison of the core structures is shown in Table \ref{tab:InductorCompariso
     Microcontroller   & Texas Instruments F280049C      \\
     Aux. Power Supply & Texas Instruments TPSM365R6     \\
     Current Sensor    & Allegro ACS37220                \\  
-    \hline         
-  \end{tabular}
-  \label{tab:Hardware}
+    \bottomrule
+  \end{tblr}
 \end{table}
+
+
 The assembled prototype is shown in Figure \ref{fig:PrototypePicture}. The boxed volume of just \qty{12.4}{\cubic\cm} results in a powder density of \qty{80}{\kW\per\liter} (\qty{1300}{\W\per\cubic\inch}). It's main hardware components are listed in table \ref{tab:Hardware}. Two parallel low side transistors per phase are used as the converter operates at a low dutycycle. To minimize the stray inductance, the decoupling capacitors for the half-bridges were connected to the devices with a vertical power-loop layout which uses the first inner layer as a return path as proposed by \cite{reuschUnderstandingEffectPCB2014}. In contrast to other designs, the large onboard capacitance allows the converter to operate without any additional off-board capacitance. \par
 The converter operates over the entire range as expected. The efficiency is shown in Figure \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W}, demonstrating the efficacy of the inductor structure.  %as introduced by \cite{baumannInvestigationCorelossMechanisms2022}. 
 
@@ -326,8 +336,8 @@ The converter operates over the entire range as expected. The efficiency is show
 \end{figure}
 
 \section{Conclusion}
-ToDo \par
-A more detailed analysis of the losses will be given in the final paper including a calculation of the ratio of different loss-mechanisms.
+Preliminary results show that the buck converter with negatively coupled, single turn inductors is capable of achieving very high power density and efficiency for \qty{48}{\V} to \qty{12}{\V} conversion. Utilizing the transformer model, compact equations for the pivotal electrical parameters were derived in dependency of the coupling factor. It was shown, that positive and negative coupling are ambivalent in their electrical parameters but negative coupling creates a much lower DC flux which is important for high-frequency materials. Utilizing a dual air-gap and optimized windings losses could be decreased further. \par
+The final paper will include a thermal analysis of the converter including its cooling system; the maximum achievable output power is expected to be higher than currently shown. It will also include more detailed measurements of the efficiency with a fixed conversion ratio instead of fixed dutycycle as well as efficiency in boost-mode. Furthermore, a more detailed analysis of the losses will be presented, comparing the different sources of losses in simulation and reality.
 
 \bibliographystyle{IEEEtran}
 \bibliography{Paper_Bibliography}
