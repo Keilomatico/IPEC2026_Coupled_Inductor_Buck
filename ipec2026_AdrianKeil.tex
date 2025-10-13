@@ -121,22 +121,6 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
 \end{figure}
 The topology of the two phase coupled-inductor buck converter is shown in Figure \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs are switched \qty{180}{\degree} out of phase. When the leg 2 is pulled high, the current in leg 1 is also affected as shown in Figure \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. The converter operates at very high ripple, more than twice the phase current such that the leg current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. This mode is called \ac{tcm}. Only the small turn-off losses are observed now \cite{marxgutInterleavedTriangularCurrent2010}. If the dead-time is too long, the devices enter reverse-conduction creating additional losses as shown in \ref{fig:waveform_Coupling}. In practice, these reverse-conduction losses can be almost eliminated by properly adjusting the dead-time. %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
 
-% \begin{figure}
-%   \begin{subfigure}[c]{\columnwidth}
-%       \centering
-%       \input{figures/waveform_negCoupling.tikz}
-%       \subcaption{Negative Coupling (\sbl{k} = -0.3)}
-%       \label{fig:waveform_negCoupling}
-%     \end{subfigure}
-%     \begin{subfigure}[c]{\columnwidth}
-%       \centering
-%       \input{figures/waveform_posCoupling.tikz}
-%       \subcaption{Positive Coupling (\sbl{k} = 0.3)}
-%       \label{fig:waveform_posCoupling}
-%     \end{subfigure}
-%   \caption{Waveforms for positive and negative coupling. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same. ToDo: Make smaller!}
-%   \label{fig:waveform_Coupling}
-% \end{figure}
 \begin{figure}
   \begin{subfigure}[c]{0.51\columnwidth}
       \centering
@@ -337,7 +321,7 @@ The converter operates over the entire range as expected. The efficiency is show
 \begin{figure}
   \centering
   \input{figures/Efficiency_48V_TDK.tikz}
-  \caption{Efficiency of the prototype for $\sbl{Vin}=\qty{48}{\V}$ and D=0.25 ($\sbl{vout} \approx \qty{12}{\V}$). ToDo: Different markers for the curves.}
+  \caption{Efficiency of the prototype for $\sbl{Vin}=\qty{48}{\V}$ and $D=0.25$.}
   \label{fig:Efficiency}
 \end{figure}
 

@@ -25,9 +25,10 @@
         yminorgrids,
         minor y tick num=1,
         legend style={at={(0.5,-0.3)}, anchor=north, legend cell align=left, align=left, draw=white!15!black},
-        legend columns=3
+        legend columns=3,
+        cycle list name=mark list*
     ]
-        \addplot [smooth, color=mycolor1, mark=o, mark options={solid, mark size=1pt, mycolor1}]
+        \addplot+ [smooth, color=mycolor1, mark options={solid, mark size=1.5pt, mycolor1}]
         table[row sep=crcr]{%
 62.9	0.691694257\\
 125.5	0.815818548\\
@@ -50,7 +51,7 @@
         };
         \addlegendentry{\qty{1.25}{\MHz}}
 
-        \addplot [smooth, color=mycolor2, mark=o, mark options={solid, mark size=1pt, mycolor2}]
+        \addplot+ [smooth, color=mycolor2, mark options={solid, mark size=1.5pt, mycolor2}]
         table[row sep=crcr]{%
 61.7	0.742108935\\
 123.1	0.85041111\\
@@ -70,7 +71,7 @@
         };
      \addlegendentry{\qty{1.5}{\MHz}}
 
-        \addplot [smooth, color=mycolor3, mark=o, mark options={solid, mark size=1pt, mycolor3}]
+        \addplot+ [smooth, color=mycolor3, mark options={solid, mark size=1.5pt, mycolor3}]
         table[row sep=crcr]{%
 62.1	0.808207945\\
 123.7	0.892705101\\
@@ -87,7 +88,7 @@
         };
         \addlegendentry{\qty{2}{\MHz}}
 
-        \addplot [smooth, color=mycolor4, mark=o, mark options={solid, mark size=1pt, mycolor4}]
+        \addplot+ [smooth, color=mycolor4, mark options={solid, mark size=1.5pt, mycolor4}]
         table[row sep=crcr]{%
 59.5	0.841743314\\
 118.1	0.911878282\\
@@ -101,7 +102,7 @@
         };
         \addlegendentry{\qty{2.5}{\MHz}}
 
-        \addplot [smooth, color=mycolor5, mark=o, mark options={solid, mark size=1pt, mycolor5}]
+        \addplot+ [smooth, color=mycolor5, mark options={solid, mark size=1.5pt, mycolor5}]
         table[row sep=crcr]{%
 57.2	0.856371361\\
 112.7	0.920470319\\
@@ -113,7 +114,7 @@
         };
         \addlegendentry{\qty{3}{\MHz}}
 
-        \addplot [smooth, color=mycolor6]
+        \addplot+ [smooth, color=mycolor6, mark=none]
         table[row sep=crcr]{%
 213.23	0.95387305\\
 332.12	0.96159309\\
