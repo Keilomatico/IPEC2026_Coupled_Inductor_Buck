@@ -1,23 +1,25 @@
 % This file was created by matlab2tikz.
 %
 \definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
 %
 \begin{tikzpicture}
+\pgfplotsset{
+every axis post/.append style={
+  xmin=0.2,
+  xmax=2}
+}
 
 \begin{axis}[%
-width=0.8\columnwidth,
-height=0.35\columnwidth,
-at={(0\columnwidth,0\columnwidth)},
-scale only axis,
-xmin=0.2,
-xmax=2,
-xlabel style={font=\color{white!15!black}},
+ylabel style=mycolor1,
+yticklabel style=mycolor1,
+width=0.9\columnwidth,
+height=0.45\columnwidth,
 xlabel={Spacing [mm]},
 ymin=4.5,
 ymax=7.5,
-ylabel style={font=\color{white!15!black}},
 ylabel={Copper-Loss [W]},
-axis background/.style={fill=white},
+axis y line*=left,
 xmajorgrids,
 ymajorgrids
 ]
@@ -36,4 +38,20 @@ ymajorgrids
 };
 \addplot[mark=*] coordinates {(1.2, 5.00087651688349)} node[pin=30:{Design point}]{} ;
 \end{axis}
+
+  \begin{axis}[
+    color=mycolor2,
+    width=0.9\columnwidth,
+    height=0.45\columnwidth,
+    ylabel={Volume [\unit{\cubic\cm}]}, 
+    axis y line*=right,
+    axis x line=none,
+    %ytick distance=4,
+    ytick={7, 11, 15},
+    ymin = 5,
+    ymax = 17,
+    ]
+    \addplot [color=mycolor2]%, mark=o, mark options={solid, mycolor2}, forget plot]
+  {(0.957+x)*1.508*3.676};
+  \end{axis}
 \end{tikzpicture}%

@@ -256,7 +256,7 @@ A manual optimization was conducted for each structure. The desired switching-fr
 \begin{figure}
   \centering
   \input{figures/fourPole_spacingVsLoss.tikz}
-  \caption{Spacing between PCB and core vs. loss for the four-pole core (with curved windings and centered pillar). The distance between the PCB and the side air-gap core is fixed to \qty{0.2}{\mm} and the distance between PCB and bottom is varied. The pillar is always centered between top and bottom. ToDO: Add curve for total volume.}
+  \caption{Spacing between PCB and core vs. loss and inductor volume for the four-pole core (with curved windings and centered pillar). The distance between the PCB and the side air-gap core is fixed to \qty{0.2}{\mm} and the distance between PCB and bottom is varied. The pillar is always centered between top and bottom.}
   \label{fig:fourPole_spacingVsLoss}
 \end{figure}
 
@@ -336,7 +336,7 @@ The converter operates over the entire range as expected. The efficiency is show
 \end{figure}
 
 \section{Conclusion}
-Preliminary results show that the buck converter with negatively coupled, single turn inductors is capable of achieving very high power density and efficiency for \qty{48}{\V} to \qty{12}{\V} conversion. Utilizing the transformer model, compact equations for the pivotal electrical parameters were derived in dependency of the coupling factor. It was shown, that positive and negative coupling are ambivalent in their electrical parameters but negative coupling creates a much lower DC flux which is important for high-frequency materials. Utilizing a dual air-gap and optimized windings losses could be decreased further. \par
+Preliminary results show that the buck converter with negatively coupled, single turn inductors is capable of achieving very high power density and efficiency for \qty{48}{\V} to \qty{12}{\V} conversion. Utilizing the transformer model, compact equations for the pivotal electrical parameters were derived in dependency of the coupling factor. It was shown that positive and negative coupling are ambivalent in their electrical parameters but negative coupling creates a much lower DC flux which is important for high-frequency materials. Utilizing a dual air-gap and optimized windings, losses could be decreased significantly. \par
 The final paper will include a thermal analysis of the converter including its cooling system; the maximum achievable output power is expected to be higher than currently shown. It will also include more detailed measurements of the efficiency with a fixed conversion ratio instead of fixed dutycycle as well as efficiency in boost-mode. Furthermore, a more detailed analysis of the losses will be presented, comparing the different sources of losses in simulation and reality.
 
 \bibliographystyle{IEEEtran}
