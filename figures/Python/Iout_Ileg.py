@@ -108,11 +108,14 @@ ax.set_xlim(-kmax, kmax)
 ax.grid(True, alpha=0.3, color='#CCCCCC')
 
 # Create single legend with black color showing duty cycles
-legend = ax.legend(legend_handles, legend_labels, loc='upper left', fontsize=10,
-                  framealpha=0.9, fancybox=True, edgecolor='black')
+legend = ax.legend(legend_handles, legend_labels, loc='upper left', fontsize=11,
+                  framealpha=0.7, fancybox=True, edgecolor='black')
 # Set legend text color to black
 for text in legend.get_texts():
     text.set_color('black')
+# change the line width for the legend
+for line in legend.get_lines():
+    line.set_linewidth(1.0)
 
 # Clean up spines
 ax.spines['top'].set_visible(False)
