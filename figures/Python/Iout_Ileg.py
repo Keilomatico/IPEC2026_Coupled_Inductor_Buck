@@ -1,9 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+plt.style.use('IPEC_Style.mplstyle')
+
 # Define k range
 kmax = 0.6
 k = np.linspace(-kmax, kmax, 1000)
+
+# Define marks
+markspacing = 100;
 
 # Define duty cycles
 D_values = [0.15, 0.25, 0.35]
@@ -11,11 +16,13 @@ line_styles = ['--', '-.', ':']
 markers = ['s', '^', 'o']
 
 # Modern, modest colors
-color_left = '#2E86AB'   # Modern blue for DeltaIout
-color_right = '#A23B72'  # Modern burgundy for DeltaIleg
+color_left = '#7e2f8eff'   # DeltaIout
+color_right = '#0071bcff'  # DeltaIleg
 
-# Create figure with single y-axis
-fig, ax = plt.subplots(figsize=(12, 8))
+# Create figure with single y-
+fig, ax = plt.subplots()
+#fig = plt.figure(figsize=(6,4))
+#ax = fig.add_axes([0.1,0.1,0.75,0.75]) # axis starts at 0.1, 0.1
 
 # Plot for each duty cycle
 legend_handles = []
@@ -23,18 +30,16 @@ legend_labels = []
 
 for i, Deff in enumerate(D_values):
     # Calculate DeltaIout
-    DeltaIout = 2 / (1 + k) * Deff * (0.5 - Deff)
+    DeltaIout = 2/(1+k)*Deff*(0.5-Deff)
     
     # Calculate DeltaIleg
-    DeltaIleg = Deff / 2 * (
-        2 / (1 + k) * (0.5 - Deff) + 1 / (1 - k)
-    )
+    DeltaIleg = Deff/2 * (2/(1+k)*(0.5-Deff) + 1/(1-k))
     
     # Adjust marker positions for D=0.35 (index 2) to make them visible
     if i == 2:  # D=0.35 case
-        markevery_iout = 25  # Twice as many markers
+        markevery_iout =int(markspacing/2)  # Twice as many markers
     else:
-        markevery_iout = 50
+        markevery_iout = markspacing
     
     # Plot DeltaIout
     ax.plot(k, DeltaIout, 
@@ -42,17 +47,18 @@ for i, Deff in enumerate(D_values):
             color=color_left, 
             marker=markers[i],
             markevery=markevery_iout,
-            markersize=6,
-            linewidth=2)
+            markersize=5,
+            linewidth=1,
+            alpha=0.8)  # alpha keyword is the only tool needed to add transparency 
     
     # Plot DeltaIleg
     ax.plot(k, DeltaIleg, 
             linestyle=line_styles[i], 
             color=color_right, 
             marker=markers[i],
-            markevery=50,
-            markersize=6,
-            linewidth=2,
+            markevery=markspacing,
+            markersize=5,
+            linewidth=1,
             alpha=0.8)
     
     # Add to legend with longer lines
@@ -78,21 +84,21 @@ DeltaIleg_marker = Deff_ileg / 2 * (
 # Add ΔIout identification label (text only)
 ax.annotate(r'$\Delta I_\mathrm{out}$', xy=(k_iout, DeltaIout_marker), 
             xytext=(15, 10), textcoords='offset points',
-            fontsize=15, fontweight='bold', color=color_left,
+            fontweight='bold', color=color_left,
             bbox=dict(boxstyle='round,pad=0.4', facecolor='white', 
                      edgecolor=color_left, alpha=0.9))
 
 # Add ΔIleg identification label (text only)
 ax.annotate(r'$\Delta I_\mathrm{leg}$', xy=(k_ileg, DeltaIleg_marker), 
             xytext=(15, 10), textcoords='offset points',
-            fontsize=15, fontweight='bold', color=color_right,
+            fontweight='bold', color=color_right,
             bbox=dict(boxstyle='round,pad=0.4', facecolor='white', 
                      edgecolor=color_right, alpha=0.9))
 
 # Set labels and formatting
 ax.set_xlabel('k', fontsize=12, color='#333333')
 #ax.set_ylabel('Current Ripple / (Vin/(fs*L_self)', fontsize=12, color='#333333', fontweight='bold')
-ax.set_ylabel(r'$\mathrm{Current~Ripple}~/~\frac{V_\mathrm{in}}{f_\mathrm{s} L_\mathrm{self}}$', fontsize=12, color='#333333', fontweight='bold')
+ax.set_ylabel(r'Current Ripple / $\frac{V_\mathrm{in}}{f_\mathrm{s} L_\mathrm{self}}$', fontsize=12, color='#333333', fontweight='bold')
 #ax.set_ylabel(r'Current Ripple / ($V_\mathrm{in}$/($f_\mathrm{s}$ $L_\mathrm{self}$))', fontsize=12, color='#333333', fontweight='bold')
 
 # Set x-axis limits
@@ -115,5 +121,11 @@ ax.spines['left'].set_color('#666666')
 ax.spines['bottom'].set_color('#666666')
 
 # Tight layout and show
-plt.tight_layout()
+plt.tight_layout(pad=0)
+#fig.set_size_inches(w=4.7747, h=3.5)
+
+# For some reason, the pgf backend crops the figure while the pdf backend does everything perfectly
+#plt.savefig("current_ripple_plot.pgf", backend='pgf')
+plt.savefig("current_ripple_plot.pdf", backend='pdf')
+
 plt.show()
