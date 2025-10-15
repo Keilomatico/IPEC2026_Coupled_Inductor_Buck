@@ -47,7 +47,7 @@ for i, Deff in enumerate(D_values):
             color=color_left, 
             marker=markers[i],
             markevery=markevery_iout,
-            markersize=5,
+            markersize=4,
             linewidth=1,
             alpha=0.8)  # alpha keyword is the only tool needed to add transparency 
     
@@ -57,7 +57,7 @@ for i, Deff in enumerate(D_values):
             color=color_right, 
             marker=markers[i],
             markevery=markspacing,
-            markersize=5,
+            markersize=4,
             linewidth=1,
             alpha=0.8)
     
