@@ -127,7 +127,6 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
   \caption{Schematic of the Coupled Inductor Buck Converter.}
   \label{fig:Schematic_BuckConfig_Coupled}
 \end{figure}
-The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs are switched \qty{180}{\degree} out of phase. When the leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. The converter operates at very high ripple, more than twice the phase current. The low-side switch is kept on for a short period of time after the zero-crossing of the leg current such that the current becomes negative prior to the rising edge of each leg resulting in a \ac{zvs} turn-on of all transistors. This mode is commonly called \ac{tcm} \cite{marxgutInterleavedTriangularCurrent2010}. Only the small turn-off losses are observed now. If the dead-time is too long, the devices enter reverse-conduction creating additional losses. In practice, these reverse-conduction losses can be almost eliminated by properly adjusting the dead-time. %As the output current changes, the frequency needs to be adjusted to maintain the desired negative current.
 
 \begin{figure}
   \begin{subfigure}[c]{0.51\columnwidth}
@@ -145,6 +144,8 @@ The topology of the two phase coupled-inductor buck converter is shown in Fig. \
   \caption{Waveforms for positive and negative coupling; dead-times are exaggerated. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same.}
   \label{fig:waveform_Coupling}
 \end{figure}
+The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs are switched \qty{180}{\degree} out of phase. When the leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
+Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to more than two times the average phase current (Fig. \ref{fig:waveform_Coupling}) \cite{henzeZerovoltageSwitchingHigh1988}. The low-side switch is kept on after the zero-crossing of the leg current for a short period of time such that the current becomes negative. Once the switch is disabled, the inductor current charges/discharges the GaN-FETs' drain-source capacitances until the high-side GaN-FET enters reverse conduction. High losses are observed during reverse conduction requiring precise dead-time calculation and adaptive switching frequency \cite{haiderAnalyticalCalculationResidual2021}. Turn-off losses remain but are small due to the large drain-source capacitance. 
 
 \paragraph{Impact of the Coupling Factor}
 \begin{figure}
