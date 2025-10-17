@@ -100,7 +100,7 @@
 \maketitle
 
 \begin{abstract}
-The next generation of automotive vehicles and datacenters requires highly compact and efficient 48 V to 12 V point-of-load converters. This paper presents a novel single-turn planar inductor geometry with four poles and dual air gap for operation beyond 1 MHz that minimizes copper-losses from external proximity effect. An experimental prototype with 1 kW output achieves an impressive power density of 80 kW/L (1300 W/in³) and a peak efficiency of 96.3\%, demonstrating the potential of the inductor structure.
+The next generation of automotive vehicles and datacenters requires highly compact and efficient 48 V to 12 V point-of-load converters. This paper presents a novel single-turn planar inductor geometry with four poles and dual air gap for operation beyond 1 MHz that minimizes copper-losses from external proximity effect. An experimental prototype with 1 kW output achieves a power density of 80 kW/L (1300 W/in³) and a peak efficiency of 96.3\%, demonstrating the potential of the inductor structure.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -123,7 +123,7 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
 
 \section{Coupled inductor buck converter in TCM}
 \paragraph{Working principle}
-\begin{figure} [b]
+\begin{figure}
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/Inkscape/Schematic.pdf}
   \caption{Schematic of the Coupled Inductor Buck Converter.}
@@ -146,8 +146,8 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
   \caption{Waveforms for positive and negative coupling; dead-times are exaggerated. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same.}
   \label{fig:waveform_Coupling}
 \end{figure}
-The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs are switched \qty{180}{\degree} out of phase. When the leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
-Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to more than two times the average phase current (Fig. \ref{fig:waveform_Coupling}) \cite{henzeZerovoltageSwitchingHigh1988}. The low-side switch is kept on after the zero-crossing of the leg current for a short period of time such that the current becomes negative. Once the switch is disabled, the inductor current charges/discharges the GaN-FETs' drain-source capacitances until the high-side GaN-FET enters reverse conduction. High losses are observed during reverse conduction requiring precise dead-time calculation and adaptive switching frequency \cite{haiderAnalyticalCalculationResidual2021}. Turn-off losses remain but are small due to the large drain-source capacitance. 
+The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs switched \qty{180}{\degree} out of phase. When leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
+Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to more than two times the average phase current (Fig. \ref{fig:waveform_Coupling}) \cite{henzeZerovoltageSwitchingHigh1988}. The low-side switch is kept on after the zero-crossing of the leg current for a short period of time such that the current becomes negative. Once the low-side switch is disabled, the inductor current charges/discharges the GaN-FETs' drain-source capacitances until the high-side GaN-FET enters reverse conduction. High losses are observed during reverse conduction requiring precise dead-time calculation and adaptive switching frequency \cite{haiderAnalyticalCalculationResidual2021}. Turn-off losses remain but are small due to the large drain-source capacitance. 
 
 \paragraph{Impact of the Coupling Factor}
 \begin{figure}
@@ -156,7 +156,7 @@ Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to
   \caption{The coupled inductor can be described with a self-inductance \sbl{Lself} and coupling factor \sbl{k} or by using an equivalent circuit consisting of an ideal 1:1 transformer with magnetizing inductance \sbl{Lm} and common output inductance \sbl{Lout}.}
   \label{fig:InductorModel}
 \end{figure}
-The symmetrical coupled inductor consists of two identical coils that are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
+The symmetrical coupled inductor consists of two identical coils. They are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
 \begin{equation}
   \label{eq:StandardCoupling}
   \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
@@ -196,9 +196,10 @@ The peak-to-peak ripple in each leg which is important for soft-switching is
   \caption{Structure of the studied cores in side-view if cut through the middle. First winding in red, second winding in blue.}
   \label{fig:Core_Drawings}
 \end{figure}
-Four different geometries, two coupled, and two uncoupled ones, were compared for this work as shown in Fig. \ref{fig:Core_Drawings}. The Double-PQ structure was originally introduced by \cite{wangPCBWindingBasedCoupled2023} and combines two EQ-cores placed next to each other. The four-pole structure is very similar but omits the central pole \cite{huaUltrathinCoupledInductor2021}. Both of these geometries were originally constructed with two pieces such that there is only an air gap at the top. The additional air gap shown in Fig. \ref{fig:Core_Drawings} is introduced in this work.
-The third geometry is basically an EE-Core but instead of one central gap, two gaps are used. Lastly, the vertical gap geometry proposed by \cite{schaferNovelHighlyEfficient2020} is investigated which can partly compensate the internal proximity effect. %A notable downside of the vertical gap is that it prohibits cooling with conductive materials from the top and bottom, which is usually a big advantage of planar inductors, due to the external flux in this area. 
-\par All designs use a single turn with all six layers in parallel which is very different from their original designs. %Six layers were chosen due to the significantly cheaper manufacturing cost compared to higher layer counts. The inner layers have a thickness of \qty{70}{\um} while the outer ones have only \qty{35}{\um}, due to the tight spacing of the selected gate-driver which required a \qty{35}{\um} outer layer at the selected manufacturer to meet clearance constraints. 
+This work introduces an additional air-gap to different designs as shown in Fig. \ref{fig:Core_Drawings}. Four geometries, two coupled, and two uncoupled ones, were compared: The Double-PQ structure (Fig. \ref{fig:Core_Drawings} (a)) was originally introduced by \cite{wangPCBWindingBasedCoupled2023} and combines two EQ-cores placed next to each other. The four-pole structure (Fig. \ref{fig:Core_Drawings} (b)) is very similar but omits the central pole \cite{huaUltrathinCoupledInductor2021}. Both of these geometries were originally constructed with two pieces such that there is only an air gap at the top.
+The third geometry (Fig. \ref{fig:Core_Drawings} (c)) is basically an EE-Core but instead of one central gap, two gaps are used. Lastly, the vertical gap geometry (Fig. \ref{fig:Core_Drawings} (d)) proposed by \cite{schaferNovelHighlyEfficient2020} is investigated. The vertical air gap creates a fringing field in the middle of the windings. This partly compensates the internal proximity effect and draws current to the center, reducing losses. The main downside of this design is the significant external field on top and bottom of the inductor, making cooling difficult as no conductive material can be placed on top or bottom of the core. %A notable downside of the vertical gap is that it prohibits cooling with conductive materials from the top and bottom, which is usually a big advantage of planar inductors, due to the external flux in this area. 
+\par All designs use a single turn with all six layers in parallel, significantly differing from the original designs.
+%Six layers were chosen due to the significantly cheaper manufacturing cost compared to higher layer counts. The inner layers have a thickness of \qty{70}{\um} while the outer ones have only \qty{35}{\um}, due to the tight spacing of the selected gate-driver which required a \qty{35}{\um} outer layer at the selected manufacturer to meet clearance constraints. 
 Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing and flux leakage between the pillars.
 
 \paragraph{Material limitations}
@@ -210,7 +211,7 @@ TDK's PC200 was selected for this design as it exhibits very low loss in the ran
     \centering
     %\resizebox{0.9\columnwidth}{!}{\input{figures/Python/current_ripple_plot.pgf}}
     \includegraphics[width=0.95\columnwidth]{figures/Python/current_ripple_plot.pdf}
-    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycle. For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
+    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycle. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
     \label{fig:OutputAndLegRipple}
 \end{figure}
 \begin{figure}
@@ -266,11 +267,11 @@ The external proximity effect caused by the air gap plays an important role for 
 %   \label{fig:fourPole_spacingVsLoss}
 % \end{figure}
 
-\paragraph{Vertical Air Gap}
-The design with vertical air gap showed a significantly lower loss compared to a traditional horizontal gap while having a much lower volume. This confirms the results from \cite{schaferNovelHighlyEfficient2020}. The main downside of this design is the significant external field on top and bottom of the inductor, making cooling difficult as no conductive material can be placed on top or bottom of the core. %, eliminating one of the typical advantages of planar inductors: The large area for cooling. Cooling from the side is proposed by \cite{schaferNovelHighlyEfficient2020} by having copper extending to the outside of the core where a heatsink can be attached but this is much less convenient and requires additional space.
+%\paragraph{Vertical Air Gap}
+%The vertical air gap creates a fringing field in the middle of the windings. This partly compensates the internal proximity effect and draws current to the center, reducing losses \cite{schaferNovelHighlyEfficient2020}. The main downside of this design is the significant external field on top and bottom of the inductor, making cooling difficult as no conductive material can be placed on top or bottom of the core. %, eliminating one of the typical advantages of planar inductors: The large area for cooling. Cooling from the side is proposed by \cite{schaferNovelHighlyEfficient2020} by having copper extending to the outside of the core where a heatsink can be attached but this is much less convenient and requires additional space.
 
 \paragraph{Comparison of Core Structures}
-Table \ref{tab:InductorComparison} compares the different core structures for a design with $\sbl{fs}=\qty{1.5}{\MHz}$ at $\overline{\sbl{iout}} = \qty{80}{\A}$ and $\sbl{k} = -0.3$. This coupling factor was chosen because it allows the use of small air gaps at the pillar which reduces copper losses due to the smaller external field while still not increasing \sbl{DeltaIout} too much. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed the lowest losses and volume and was chosen for the implementation. The inductor design is shown in Fig. \ref{fig:Four-Pole-3d}.
+Table \ref{tab:InductorComparison} compares the different core structures for a design with $\sbl{fs}=\qty{1.5}{\MHz}$ at $\overline{\sbl{iout}} = \qty{80}{\A}$ and $\sbl{k} = -0.3$. This coupling factor was chosen because it allows the use of small air gaps at the pillar which reduces copper losses due to the smaller external field while still not increasing \sbl{DeltaIout} too much. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed both lowest losses and lowest volume and was chosen for the implementation. The final design of the four-pole structure with optimized windings is shown in Fig. \ref{fig:Four-Pole-3d}.
 
 \begin{table}
   \caption{Comparison of the size and loss of the different core structures for \qty{1.5}{\MHz} respecting the \sbl{Hdc} limit. The Four-Pole structure shows the lowest losses and volume.}
@@ -287,7 +288,7 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
       Four-Pole & 5.5 & 0.9 & 5.3 & 5.0 \\
       Double PQ & 6.2 & 0.9 & 5.5 & 5.2 \\
       Vertical gap & 8.0 & 0.7 & 5.8 & 5.6 \\
-      UU core & 8.1 & 1.1 & 8.9 & 6.0 \\
+      EE core & 8.1 & 1.1 & 8.9 & 6.0 \\
     \bottomrule
   \end{tblr}
 \end{table}
@@ -331,8 +332,8 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
 \end{table}
 
 
-The assembled prototype is shown in Fig. \ref{fig:PrototypePicture}. The boxed volume of just \qty{12.4}{\cubic\cm} results in a power density of \qty{80}{\kW\per\liter} (\qty{1300}{\W\per\cubic\inch}). It's main hardware components are listed in table \ref{tab:Hardware}. Two parallel low side transistors per phase are used as the converter operates at a low duty cycle. To minimize the stray inductance, the decoupling capacitors for the half-bridges were connected to the devices with a so-called vertical power-loop layout which uses the first inner layer as a return path \cite{reuschUnderstandingEffectPCB2014}. In contrast to other designs, the large onboard capacitance allows the converter to operate without any additional off-board capacitance. \par
-The converter operates over the entire range as expected. The efficiency is shown in Fig. \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W}. As expected, the efficiency significantly drops for each frequency once a certain power is exceeded. This is caused by the operation in \ac{tcm}: The leg-current ripple is proportional to the switching frequency and to achieve soft-switching, a certain negative current is required prior to the turn-off of the low-side switch, otherwise the voltage at the switching node will not rise fast enough to yield soft-switching. As the output current rises, the negative current rises and at some point, soft-switching is lost. %However, as long as there is some negative current the switch-node potential still rises within the dead time such that the turn-on losses are reduced. This explains the gradual decrease of the efficiency. 
+The assembled prototype is shown in Fig. \ref{fig:PrototypePicture}. The boxed volume of just \qty{12.4}{\cubic\cm} results in a power density of \qty{80}{\kW\per\liter} (\qty{1300}{\W\per\cubic\inch}). It's main hardware components are listed in table \ref{tab:Hardware}. Two parallel low side transistors per phase are used as the converter operates at a low duty cycle. To minimize the stray inductance, the decoupling capacitors for the half-bridges are connected to the devices with a so-called vertical power-loop layout which uses the first inner layer as a return path \cite{reuschUnderstandingEffectPCB2014}. In contrast to other designs, the large onboard capacitance allows the converter to operate without any additional off-board capacitance. \par
+The converter operates over the entire range as expected. The efficiency is shown in Fig. \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W} putting it in the same range as comparable LLC designs \cite{caiOptimalDesignMegahertz2020, ahmedLowLossIntegratedInductor2020}. As expected, the efficiency significantly drops for each frequency once a certain power is exceeded. This is caused by the operation in \ac{tcm}: The leg-current ripple is proportional to the switching frequency and to achieve soft-switching, a certain negative current is required prior to the turn-off of the low-side switch. Otherwise, the voltage at the switching node will not rise fast enough to yield soft-switching. As the output current rises, the negative current rises and at some point, soft-switching is lost. %However, as long as there is some negative current the switch-node potential still rises within the dead time such that the turn-on losses are reduced. This explains the gradual decrease of the efficiency. 
 To use the converter in a real application, a variable switching frequency is required. The expected resulting efficiency curve is indicated in Fig. \ref{fig:Efficiency}.
 
 \begin{figure}
@@ -343,7 +344,7 @@ To use the converter in a real application, a variable switching frequency is re
 \end{figure}
 
 \section{Conclusion}
-This paper introduced a novel, negatively coupled, single turn inductor which enables very high power density and efficiency in a two-phase buck converter for \qty{48}{\V} to \qty{12}{\V} conversion. The effects of positive and negative coupling were evaluated in detail. It was shown that even tough negative coupling exhibits higher leg and output current ripple, it allows a much more compact construction due to the lower DC flux. A dual air gap and optimized winding geometry were introduced which reduce losses by \qty{30}{\percent}. Following the comparison of four different inductor geometries, the best design was implemented in an experimental prototype which achieves an impressive power density of \qty{80}{\kW\per\l} (\qty{1300}{\W\per\cubic\inch}) for \qty{1}{\kW} and a peak efficiency of 96.3\%, demonstrating the potential of the inductor. \par
+This paper introduced a novel, negatively coupled, single turn inductor which enables very high power density and efficiency in a two-phase buck converter for \qty{48}{\V} to \qty{12}{\V} conversion. The effects of positive and negative coupling were evaluated in detail. It was shown that even though negative coupling exhibits higher leg and output current ripple, it allows a much more compact construction due to the lower DC flux. A dual air gap and an optimized winding geometry were introduced which reduce losses by \qty{30}{\percent}. Following the comparison of four different inductor geometries, the best design was implemented in an experimental prototype which achieves a power density of \qty{80}{\kW\per\l} (\qty{1300}{\W\per\cubic\inch}) for \qty{1}{\kW} and a peak efficiency of 96.3\%, demonstrating the potential of the inductor. \par
 The final paper will add a more detailed analysis of the losses, comparing the different sources of losses in simulation with measurements from the prototype. More detailed measurements will also be presented, showing efficiency for a fixed conversion ratio instead of fixed duty cycle as well as efficiency in boost-mode. %The maximum achievable output power is expected to be higher than currently shown as the cooling system is not at capacity.
 
 \bibliographystyle{IEEEtranNDoi}
