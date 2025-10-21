@@ -57,6 +57,7 @@
 \mathSymbol{Lout}{L_\mathrm {out}}{Output inductance in the transformer model}
 \mathSymbol{im}{i_\mathrm m}{Magnetizing current in the transformer model}
 \mathSymbol{iout}{i_\mathrm {out}}{Output current}
+\mathSymbol{iout_avg}{\overline{i_\mathrm {out}}}{Average output current}
 \mathSymbol{v1}{v_\mathrm 1}{Voltage at the switch-node leg 1}
 \mathSymbol{v2}{v_\mathrm 2}{Voltage at the switch-node leg 2}
 \mathSymbol{i1}{i_\mathrm 1}{Current of leg 1}
@@ -109,7 +110,7 @@ automotive 48 V to 12 V, coupled inductor, high power density, soft-switching
 \end{IEEEkeywords}
 
 \section{Introduction}
-With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Moving to a \qty{48}{\V} distribution bus reduces the cost of the wire assembly and losses \cite{kumawatComprehensiveStudyAutomotive2019}. As most devices are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and overall build volume \cite{kumawatComprehensiveStudyAutomotive2019}. With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing their size \cite{weitzHighFrequencyResonant2023}. Resonant converters with planar transformers are a common choice but are unsuitable when a regulated output voltage is required over a wide input voltage range. In these cases, the classical buck converter is appropriate but the design of compact and efficient planar inductors is challenging due to the missing possibility for interleaving, the fringing of the air gap, and the DC-bias in the core. \par
+With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Moving to a \qty{48}{\V} distribution bus reduces the cost of the wire assembly and losses \cite{kumawatComprehensiveStudyAutomotive2019}. As devices with lower power consumption are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and overall build volume \cite{kumawatComprehensiveStudyAutomotive2019}. With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing their size \cite{weitzHighFrequencyResonant2023}. Resonant converters with fixed gain based on planar transformers are a common choice but are unsuitable when a regulated output voltage is required over a wide input voltage range. In these cases, the classical buck converter is appropriate but the design of compact and efficient planar inductors is challenging due to the missing possibility for interleaving, the fringing effect of the air gap, and the DC-bias in the core. \par
 %Utilizing multi-phase converters with coupled inductors is an effective way to reduce the volume and loss of the planar inductors as the flux can cancel out in certain areas \cite{huaUltrathinCoupledInductor2021}. \par
 In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyrange{48}{12}{\V} conversion is studied. To minimize the overall volume, a target switching-frequency range of \qtyrange{1}{3}{\MHz} was selected. Compared to previous work \cite{nan1MHzBidirectional2016, dongInvestigationMultiphaseCoupledInductor2009, shaZVSInterleavedSynchronousBuck2022, huaUltrathinCoupledInductor2021, wangPCBWindingBasedCoupled2023}, the low operating voltage requires a very low inductance whose design becomes particularly challenging due to the large phase current of \qty{40}{\A} with \qty{100}{\A} of ripple (required to achieve soft-switching). Firstly, the effects of coupling on the electrical parameters are analyzed mathematically. Afterwards, different geometries for the single-turn inductor are optimized using a novel winding geometry and dual air gaps. The most promising geometry based on the four-pole structure is implemented and tested in an experimental prototype. %which achieves an impressive power density of 80 kW/l (1300 W/in³) and a peak efficiency of \qty{96.3}{\percent}, demonstrating the efficacy of the novel inductor structure.
 
@@ -146,7 +147,7 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
   \caption{Waveforms for positive and negative coupling; dead-times are exaggerated. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same.}
   \label{fig:waveform_Coupling}
 \end{figure}
-The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs switched \qty{180}{\degree} out of phase. When leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}: For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
+The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs switched \qty{180}{\degree} out of phase. When leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}. For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
 Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to more than two times the average phase current (Fig. \ref{fig:waveform_Coupling}) \cite{henzeZerovoltageSwitchingHigh1988}. The low-side switch is kept on after the zero-crossing of the leg current for a short period of time such that the current becomes negative. Once the low-side switch is disabled, the inductor current charges/discharges the GaN-FETs' drain-source capacitances until the high-side GaN-FET enters reverse conduction. High losses are observed during reverse conduction requiring precise dead-time calculation and adaptive switching frequency \cite{haiderAnalyticalCalculationResidual2021}. Turn-off losses remain but are small due to the large drain-source capacitance. 
 
 \paragraph{Impact of the Coupling Factor}
@@ -156,12 +157,12 @@ Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to
   \caption{The coupled inductor can be described with a self-inductance \sbl{Lself} and coupling factor \sbl{k} or by using an equivalent circuit consisting of an ideal 1:1 transformer with magnetizing inductance \sbl{Lm} and common output inductance \sbl{Lout}.}
   \label{fig:InductorModel}
 \end{figure}
-The symmetrical coupled inductor consists of two identical coils. They are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This configuration can be described mathematically using 
+The symmetrical coupled inductor consists of two identical coils. They are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This can be described mathematically using 
 \begin{equation}
   \label{eq:StandardCoupling}
   \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
 \end{equation}
-with self-inductance \sbl{Lself} and coupling-factor \sbl{k}. Note that \sbl{k} can be positive or negative.
+with self-inductance \sbl{Lself} and magnetic coupling-factor \sbl{k} ($-1 \leq k \leq 1$).
 In order to provide a more intuitive understanding, the equivalent circuit in Fig. \ref{fig:InductorModel} (b) is introduced. Both circuits are electrically equivalent for $\sbl{Lout} = (1+\sbl{k})\frac{\sbl{Lself}}{2}$ and $\sbl{Lm} = (1-\sbl{k})\frac{\sbl{Lself}}{2}$.
 The voltage at the virtual central node in the transformer model is only dependent on the two leg voltages \sbl{v1} and \sbl{v2}, decoupling the governing equations:
 \begin{equation}
@@ -185,9 +186,10 @@ The peak-to-peak ripple in each leg which is important for soft-switching is
 
 \sbl{Ion} needs to be below a certain negative value \sbl{Ion,max} to guarantee a sufficiently short dead time. This is fulfilled for
 \begin{equation}
-    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\overline{\sbl{iout}}+2\sbl{Ion,max})} \left (\frac{2}{1+\sbl{k}}\left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right ).
+    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout_avg}+2\sbl{Ion,max})} \left (\frac{2}{1+\sbl{k}}\left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right )
     \label{eq:ConditionZVS}
 \end{equation}
+where \sbl{iout_avg} is the average value of \sbl{iout}.
 
 \section{Inductor Design}
 \paragraph{Inductor geometry}
@@ -271,7 +273,7 @@ The external proximity effect caused by the air gap plays an important role for 
 %The vertical air gap creates a fringing field in the middle of the windings. This partly compensates the internal proximity effect and draws current to the center, reducing losses \cite{schaferNovelHighlyEfficient2020}. The main downside of this design is the significant external field on top and bottom of the inductor, making cooling difficult as no conductive material can be placed on top or bottom of the core. %, eliminating one of the typical advantages of planar inductors: The large area for cooling. Cooling from the side is proposed by \cite{schaferNovelHighlyEfficient2020} by having copper extending to the outside of the core where a heatsink can be attached but this is much less convenient and requires additional space.
 
 \paragraph{Comparison of Core Structures}
-Table \ref{tab:InductorComparison} compares the different core structures for a design with $\sbl{fs}=\qty{1.5}{\MHz}$ at $\overline{\sbl{iout}} = \qty{80}{\A}$ and $\sbl{k} = -0.3$. This coupling factor was chosen because it allows the use of small air gaps at the pillar which reduces copper losses due to the smaller external field while still not increasing \sbl{DeltaIout} too much. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed both lowest losses and lowest volume and was chosen for the implementation. The final design of the four-pole structure with optimized windings is shown in Fig. \ref{fig:Four-Pole-3d}.
+Table \ref{tab:InductorComparison} compares the different core structures for a design with $\sbl{fs}=\qty{1.5}{\MHz}$ at $\sbl{iout_avg} = \qty{80}{\A}$ and $\sbl{k} = -0.3$. This coupling factor was chosen because it allows the use of small air gaps at the pillar which reduces copper losses due to the smaller external field while still not increasing \sbl{DeltaIout} too much. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed both lowest losses and lowest volume and was chosen for the implementation. The final design of the four-pole structure with optimized windings is shown in Fig. \ref{fig:Four-Pole-3d}.
 
 \begin{table}
   \caption{Comparison of the size and loss of the different core structures for \qty{1.5}{\MHz} respecting the \sbl{Hdc} limit. The Four-Pole structure shows the lowest losses and volume.}
@@ -305,7 +307,7 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
 \begin{figure}
   \centering
   \includegraphics[page=2, trim = 0cm 0cm 3cm 0cm, clip, width=0.8\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
-  \caption{Fully assembled prototype (without heatspreader).  The converter area shown in orange is 45 x 29 x \qty{9.5}{\mm}. Outside of this area only the connectors for power and programming are placed as well as a protection diode and the programming resistors. ToDo: White Background and place match next to it.}
+  \caption{Fully assembled prototype (without heatspreader).  The converter area shown in orange is 45 x 29 x \qty{9.5}{\mm}. Outside of this area only the connectors for power and programming are placed as well as a protection diode and the programming resistors.}
   \label{fig:PrototypePicture}
 \end{figure}
 
