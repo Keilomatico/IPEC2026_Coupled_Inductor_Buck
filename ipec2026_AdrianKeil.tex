@@ -1,6 +1,9 @@
 % IPEC2026.cls is based on IEEEtran.cls.
 % Please read the instructions for IEEEtran.cls before using IPEC2026.cls.
-\documentclass{IPEC2026}
+\newcommand{\CLASSINPUTtoptextmargin}{1.9cm}
+\newcommand{\CLASSINPUTbottomtextmargin}{2.54cm}
+\documentclass[a4paper]{IPEC2026}
+%\usepackage[left=1.6cm,right=1.6cm,top=1.9cm,bottom=2.54cm]{geometry}
 %\IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
@@ -24,20 +27,20 @@
 \sisetup{
   per-mode=symbol-or-fraction,
   output-exponent-marker=\ensuremath{\mathrm{e}},
-  range-units = single  % Use 1 to 3 MHz instead of 1 MHz to 3 MHz
+  %range-units = single  % Use 1 to 3 MHz instead of 1 MHz to 3 MHz
   %fraction-function=\tfrac
 }
 \DeclareSIUnit{\inch}{in}
 
 % Adjust the spacing around a figure
 % 8pt plus 1pt minus 2pt: a “rubber length” with base = 8pt; stretch = up to +1pt (can grow to 9pt if there’s extra space); shrink = up to −2pt (can shrink to 6pt if the page is tight)
-\setlength{\textfloatsep}{4pt plus 3pt minus 1pt}    
+%\setlength{\textfloatsep}{5pt plus 3pt minus 1pt}    
 % Space above/below display equations
-\setlength{\abovedisplayskip}{6pt plus 3pt minus 1pt}  
-\setlength{\belowdisplayskip}{6pt plus 3pt minus 1pt} 
+%\setlength{\abovedisplayskip}{7pt plus 3pt minus 1pt}  
+%\setlength{\belowdisplayskip}{7pt plus 3pt minus 1pt} 
 % “Short” variants used when the preceding line is short or ends with a display trigger
-\setlength{\abovedisplayshortskip}{5pt plus 3pt minus 1pt}
-\setlength{\belowdisplayshortskip}{5pt plus 3pt minus 1pt}
+%\setlength{\abovedisplayshortskip}{6pt plus 3pt minus 1pt}
+%\setlength{\belowdisplayshortskip}{6pt plus 3pt minus 1pt}
 
 \usepackage[acronym]{glossaries}
 % Just for having less to type
@@ -100,9 +103,11 @@ automotive 48 V to 12 V, coupled inductor, high power density, soft-switching
 \end{IEEEkeywords}
 
 \section{Introduction}
-With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Moving to a \qty{48}{\V} distribution bus reduces the cost of the wire assembly and losses \cite{kumawatComprehensiveStudyAutomotive2019}. As devices with lower power consumption are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and overall build volume \cite{kumawatComprehensiveStudyAutomotive2019}. With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing their size \cite{weitzHighFrequencyResonant2023}. Resonant converters with fixed gain based on planar transformers are a common choice but are unsuitable when a regulated output voltage is required over a wide input voltage range. In these cases, the classical buck converter is appropriate but the design of compact and efficient planar inductors is challenging due to the missing possibility for interleaving, the fringing effect of the air gap, and the DC-bias in the core. \par
+With a growing power demand, power distribution in both conventional and electric vehicles presents an increasing challenge. Traditionally, \qty{12}{\V} are used to distribute the power to all auxiliary devices which requires large cable diameters. Moving to a \qty{48}{\V} distribution bus reduces the cost of the wire assembly and losses \cite{kumawatComprehensiveStudyAutomotive2019}. As devices with lower power consumption are still operating at \qty{12}{\V}, highly compact and efficient point-of-load converters are required. This conversion stage is a critical part of distributed power architectures and its performance has a direct impact on system-level efficiency, thermal design, and overall build volume \cite{kumawatComprehensiveStudyAutomotive2019}. With the rise of \ac{gan} power devices, operating converters in the MHz-range has become feasible, significantly reducing their size \cite{weitzHighFrequencyResonant2023}. As a low number of turns is required at these frequencies, planar magnetics that use \ac{pcb} windings can be used. This allow elaborate winding structures, effective cooling due to the large area per volume and direct integration with the other circuitry \cite{wangPCBWindingBasedCoupled2023, liHighFrequencyHigh2018, schaferNovelHighlyEfficient2020, caiOptimalDesignMegahertz2020}. Resonant converters with fixed gain based on planar transformers are a common choice but are unsuitable when a regulated output voltage is required over a wide input voltage range. In these cases, the classical buck converter is appropriate but the design of compact and efficient planar inductors is challenging due to the missing possibility for interleaving, the fringing effect of the air gap, and the DC-bias in the core. \par
 
 In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyrange{48}{12}{\V} conversion is studied. To minimize the overall volume, a target switching-frequency range of \qtyrange{1}{3}{\MHz} was selected. Compared to previous work \cite{nan1MHzBidirectional2016, dongInvestigationMultiphaseCoupledInductor2009, shaZVSInterleavedSynchronousBuck2022, huaUltrathinCoupledInductor2021, wangPCBWindingBasedCoupled2023}, the low operating voltage requires a very low inductance whose design becomes particularly challenging due to the large phase current of \qty{40}{\A} with \qty{100}{\A} of ripple (required to achieve soft-switching). Firstly, the effects of coupling on the electrical parameters are analyzed mathematically. Afterwards, different geometries for the single-turn inductor are optimized using a novel winding geometry and dual air gaps. The most promising geometry based on the four-pole structure is implemented and tested in an experimental prototype. 
+
+\pagebreak
 
 \section{Coupled inductor buck converter in TCM}
 \paragraph{Working principle}
@@ -185,14 +190,14 @@ The third geometry (Fig. \ref{fig:Core_Drawings} (c)) is basically an EE-Core bu
 All designs use a single turn with all six layers in parallel, significantly differing from the original designs. Designs with more than one turn were not considered because the desired inductance and coupling-factor could not be achieved in that case due to fringing and flux leakage between the pillars.
 
 \paragraph{Material limitations}
-TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{A/m}$ and at $\sbl{Hdc} > \qty{100}{A/m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{A/m} to have some margin.
+TDK's PC200 was selected for this design as it exhibits very low loss in the range of \qtyrange{1}{4}{\MHz}. However, the performance of PC200 significantly degrades for a field strength $\sbl{Hdc} > \qty{50}{\A\per\m}$ and at $\sbl{Hdc} > \qty{100}{\A\per\m}$ its losses double \cite{tdkHighFrequencyLowLossFerrite}. Therefore, the inductor was designed with a maximum \sbl{Hdc} of \qty{40}{\A\per\m} to have some margin.
 
 \paragraph{Positive vs negative coupling}
 \begin{figure}
     \centering
     %\resizebox{0.9\columnwidth}{!}{\input{figures/Python/current_ripple_plot.pgf}}
     \includegraphics[width=0.95\columnwidth]{figures/Python/current_ripple_plot.pdf}
-    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycle. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
+    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycles \sbl{D}. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
     \label{fig:OutputAndLegRipple}
 \end{figure}
 \begin{figure}
@@ -296,7 +301,7 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
 \end{table}
 
 The assembled prototype is shown in Fig. \ref{fig:PrototypePicture}. The boxed volume of just \qty{12.4}{\cubic\cm} results in a power density of \qty{80}{\kW\per\liter} (\qty{1300}{\W\per\cubic\inch}). It's main hardware components are listed in table \ref{tab:Hardware}. Two parallel low side transistors per phase are used as the converter operates at a low duty cycle. To minimize the stray inductance, the decoupling capacitors for the half-bridges are connected to the devices with a so-called vertical power-loop layout which uses the first inner layer as a return path \cite{reuschUnderstandingEffectPCB2014}. In contrast to other designs, the large onboard capacitance allows the converter to operate without any additional off-board capacitance. \par
-The converter operates over the entire range as expected. The efficiency is shown in Fig. \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W} putting it in the same range as comparable LLC designs \cite{caiOptimalDesignMegahertz2020, ahmedLowLossIntegratedInductor2020}. As expected, the efficiency significantly drops for each frequency once a certain power is exceeded. This is caused by the operation in \ac{tcm}: The leg-current ripple is proportional to the switching frequency and to achieve soft-switching, a certain negative current is required prior to the turn-off of the low-side switch. Otherwise, the voltage at the switching node will not rise fast enough to yield soft-switching. As the output current rises, the negative current rises and at some point, soft-switching is lost. To use the converter in a real application, a variable switching frequency is required. The expected resulting efficiency curve is indicated in Fig. \ref{fig:Efficiency}.
+The converter operates over the entire power range as expected. The efficiency is shown in Fig. \ref{fig:Efficiency} which reaches its maximum of \qty{96.3}{\percent} at around \qty{550}{\W} putting it in the same range as comparable LLC designs \cite{caiOptimalDesignMegahertz2020, ahmedLowLossIntegratedInductor2020}. As expected, the efficiency significantly drops for each frequency once a certain power is exceeded. This is caused by the operation in \ac{tcm}: The leg-current ripple is proportional to the switching frequency and to achieve soft-switching, a certain negative current is required prior to the turn-off of the low-side switch. Otherwise, the voltage at the switching node will not rise fast enough to yield soft-switching. As the output current rises, the negative current rises and at some point, soft-switching is lost. To use the converter in a real application, a variable switching frequency is required. The expected resulting efficiency curve is indicated in Fig. \ref{fig:Efficiency}.
 
 \begin{figure}
   \centering
@@ -306,7 +311,7 @@ The converter operates over the entire range as expected. The efficiency is show
 \end{figure}
 
 \section{Conclusion}
-This paper introduced a novel, negatively coupled, single turn inductor which enables very high power density and efficiency in a two-phase buck converter for \qty{48}{\V} to \qty{12}{\V} conversion. The effects of positive and negative coupling were evaluated in detail. It was shown that even though negative coupling exhibits higher leg and output current ripple, it allows a much more compact construction due to the lower DC flux. A dual air gap and an optimized winding geometry were introduced which reduce losses by \qty{30}{\percent}. Following the comparison of four different inductor geometries, the best design was implemented in an experimental prototype which achieves a power density of \qty{80}{\kW\per\l} (\qty{1300}{\W\per\cubic\inch}) for \qty{1}{\kW} and a peak efficiency of 96.3\%, demonstrating the potential of the inductor. \par
+This paper introduced a novel, negatively coupled, single turn inductor which enables very high power density and efficiency in a two-phase buck converter for \qty{48}{\V} to \qty{12}{\V} conversion. The effects of positive and negative coupling were evaluated in detail. It was shown that even though negative coupling exhibits higher leg and output current ripple, it allows a much more compact construction due to the lower DC flux. A dual air gap and an optimized winding geometry were introduced which reduce losses by \qty{30}{\percent}. Following the comparison of four different inductor geometries, the best design was implemented in an experimental prototype which achieves a power density of \qty{80}{\kW\per\l} (\qty{1300}{\W\per\cubic\inch}) for \qty{1}{\kW} and a peak efficiency of \qty{96.3}{\percent}, demonstrating the potential of the inductor. \par
 The final paper will add a more detailed analysis of the losses, comparing the different sources of losses in simulation with measurements from the prototype. More detailed measurements will also be presented, showing efficiency for a fixed conversion ratio instead of fixed duty cycle as well as efficiency in boost-mode. 
 
 \bibliographystyle{IEEEtranNDoi}
