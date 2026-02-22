@@ -1,0 +1,7 @@
+Good introduction to the same topic: 
+- A 1 MHz Bi-directional Soft-switching DC-DC Converter with Planar Coupled Inductor for Dual Voltage Automotive Systems
+
+
+Potential explanations for the high losses: 
+- Origin and Quantification of Increased Core Loss in MnZn Ferrite Plates of a Multi-Gap Inductor
+- Investigation of core-loss mechanisms in large-scale ferrite cores for high frequency applicat

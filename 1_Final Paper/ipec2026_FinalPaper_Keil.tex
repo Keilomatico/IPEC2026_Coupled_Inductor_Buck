@@ -1,17 +1,12 @@
-% IPEC2026.cls is based on IEEEtran.cls.
-% Please read the instructions for IEEEtran.cls before using IPEC2026.cls.
-\newcommand{\CLASSINPUTtoptextmargin}{1.9cm}
-\newcommand{\CLASSINPUTbottomtextmargin}{2.54cm}
-\documentclass[a4paper]{IPEC2026}
-%\usepackage[left=1.6cm,right=1.6cm,top=1.9cm,bottom=2.54cm]{geometry}
-%\IEEEoverridecommandlockouts
+\documentclass{IPEC2026TEC}
+% \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
-\usepackage{graphicx}
+\usepackage[dvipdfmx]{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
+\usepackage{xcolor} % If you are using uplatex or similar tools, please add the [dvipdfmx] option.#
 \usepackage{url} 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -22,6 +17,7 @@
 \usepackage{tabularx}
 \usepackage{tabularray}
 \UseTblrLibrary{booktabs}
+\usepackage[T1]{fontenc}
 
 \usepackage{siunitx}                % Units; e.g. prevents linebreak between number and unit
 \sisetup{
@@ -31,16 +27,6 @@
   %fraction-function=\tfrac
 }
 \DeclareSIUnit{\inch}{in}
-
-% Adjust the spacing around a figure
-% 8pt plus 1pt minus 2pt: a “rubber length” with base = 8pt; stretch = up to +1pt (can grow to 9pt if there’s extra space); shrink = up to −2pt (can shrink to 6pt if the page is tight)
-%\setlength{\textfloatsep}{5pt plus 3pt minus 1pt}    
-% Space above/below display equations
-%\setlength{\abovedisplayskip}{7pt plus 3pt minus 1pt}  
-%\setlength{\belowdisplayskip}{7pt plus 3pt minus 1pt} 
-% “Short” variants used when the preceding line is short or ends with a display trigger
-%\setlength{\abovedisplayshortskip}{6pt plus 3pt minus 1pt}
-%\setlength{\belowdisplayshortskip}{6pt plus 3pt minus 1pt}
 
 \usepackage[acronym]{glossaries}
 % Just for having less to type
@@ -85,11 +71,20 @@
 \newacronym{pcb}{PCB}{printed circuit board}
 \newacronym{gan}{GaN}{Gallium Nitride}
 
+
 \begin{document}
 
 \title{Compact Single-Turn Coupled Inductor for MHz-Range Buck Converters with Zero Voltage Switching}
-\track{6. Vehicle Electrification-related Technologies}
-%Class IPEC2026: The \author command is disabled in this template.
+
+\author{\IEEEauthorblockN{
+    Adrian Keil\textsuperscript{1}, 
+    Vincent Lorentz\textsuperscript{2}, 
+    Marcello Lobo Heldwein\textsuperscript{3}
+}
+\IEEEauthorblockA{1 Fraunhofer Institute for Integrated Systems and Device Technology IISB, Erlangen, Germany}
+\IEEEauthorblockA{2 Chair of Electronics for Electrical Energy Storage, University of Bayreuth, Germany}
+\IEEEauthorblockA{3 Chair of High-Power Converter Systems, Technical University of Munich, Germany}
+}
 
 \maketitle
 
@@ -111,13 +106,9 @@ Resonant converters with fixed gain based on planar transformers are a common ch
 
 In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyrange{48}{12}{\V} conversion is studied. To minimize the overall volume, a target switching-frequency range of \qtyrange{1}{3}{\MHz} was selected. Compared to previous work \cite{nan1MHzBidirectional2016, dongInvestigationMultiphaseCoupledInductor2009, shaZVSInterleavedSynchronousBuck2022, huaUltrathinCoupledInductor2021, wangPCBWindingBasedCoupled2023}, the low operating voltage requires a very low inductance whose design becomes particularly challenging due to the large phase current of \qty{40}{\A} with \qty{100}{\A} of ripple (required to achieve soft-switching). Firstly, the effects of coupling on the electrical parameters are analyzed mathematically. Afterwards, different geometries for the single-turn inductor are optimized using a novel winding geometry and dual air gaps. The most promising geometry based on the four-pole structure is implemented and tested in an experimental prototype. 
 
-\pagebreak
-
-\section{Coupled inductor buck converter in TCM}
-\paragraph{Working principle}
-\begin{figure}
+\begin{figure} [b!]
   \centering
-  \includegraphics[width=0.9\columnwidth]{figures/Inkscape/Schematic.pdf}
+  \includegraphics[width=0.9\columnwidth]{../figures/Inkscape/Schematic.pdf}
   \caption{Schematic of the Coupled Inductor Buck Converter.}
   \label{fig:Schematic_BuckConfig_Coupled}
 \end{figure}
@@ -125,35 +116,50 @@ In this paper, a \qty{1}{\kW} 2-phase coupled inductor buck converter for \qtyra
 \begin{figure}
   \begin{subfigure}[c]{0.51\columnwidth}
       \centering
-      \includegraphics[width=\textwidth]{figures/Inkscape/Waveforms_negative.pdf}
+      \includegraphics[width=\textwidth]{../figures/Inkscape/Waveforms_negative.pdf}
       \subcaption{Negative Coupling}
       \label{fig:waveform_negCoupling}
     \end{subfigure}
     \begin{subfigure}[c]{0.48\columnwidth}
       \centering
-      \includegraphics[width=\textwidth]{figures/Inkscape/Waveforms_positive.pdf}
+      \includegraphics[width=\textwidth]{../figures/Inkscape/Waveforms_positive.pdf}
       \subcaption{Positive Coupling}
       \label{fig:waveform_posCoupling}
     \end{subfigure}
   \caption{Waveforms for positive and negative coupling; dead-times are exaggerated. It can be seen that the slopes are changed but the behavior in the vicinity of the switching instances is fundamentally the same.}
   \label{fig:waveform_Coupling}
 \end{figure}
+
+\section{Coupled inductor buck converter in TCM}
+\paragraph{Working principle}
 The topology of the two phase coupled-inductor buck converter is shown in Fig. \ref{fig:Schematic_BuckConfig_Coupled}. It operates like a conventional two-phase buck with both legs switched \qty{180}{\degree} out of phase. When leg 2 is pulled high, the current in leg 1 is also affected as shown in Fig. \ref{fig:waveform_Coupling}. For positive coupling, the falling slope is steepened while for negative coupling it is flattened. 
 Operation in \ac{tcm} enables \ac{zvs} by increasing the phase current ripple to more than two times the average phase current (Fig. \ref{fig:waveform_Coupling}) \cite{henzeZerovoltageSwitchingHigh1988}. The low-side switch is kept on after the zero-crossing of the leg current for a short period of time such that the current becomes negative. Once the low-side switch is disabled, the inductor current charges/discharges the GaN-FETs' drain-source capacitances until the high-side GaN-FET enters reverse conduction. High losses are observed during reverse conduction requiring precise dead-time calculation and adaptive switching frequency \cite{haiderAnalyticalCalculationResidual2021}. Turn-off losses remain but are small due to the large drain-source capacitance. 
 
 \paragraph{Impact of the Coupling Factor}
 \begin{figure}
-  \includegraphics[width=0.9\columnwidth]{figures/Inkscape/Transformer-Model.pdf}
+  \includegraphics[width=0.9\columnwidth]{../figures/Inkscape/Transformer-Model.pdf}
   \caption{The coupled inductor can be described with a self-inductance \sbl{Lself} and coupling factor \sbl{k} or by using an equivalent circuit consisting of an ideal 1:1 transformer with magnetizing inductance \sbl{Lm} and common output inductance \sbl{Lout}.}
   \label{fig:InductorModel}
 \end{figure}
-The symmetrical coupled inductor consists of two identical coils. They are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This can be described mathematically using 
+The symmetrical coupled inductor shown in  Fig. \ref{fig:InductorModel} (a) consists of two identical coils. They are wound in a way, that the flux of one coil links with the flux of the second coil and vice versa with both coils connected on one side. This can be described mathematically using 
 \begin{equation}
   \label{eq:StandardCoupling}
   \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} 1 & \sbl{k} \\ \sbl{k} & 1 \end{bmatrix} \sbl{Lself} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
 \end{equation}
 with self-inductance \sbl{Lself} and magnetic coupling-factor \sbl{k} ($-1 \leq k \leq 1$).
-In order to provide a more intuitive understanding, the equivalent circuit in Fig. \ref{fig:InductorModel} (b) is introduced. Both circuits are electrically equivalent for $\sbl{Lout} = (1+\sbl{k})\frac{\sbl{Lself}}{2}$ and $\sbl{Lm} = (1-\sbl{k})\frac{\sbl{Lself}}{2}$.
+In order to provide a more intuitive understanding, the equivalent circuit in Fig. \ref{fig:InductorModel} (b) is introduced. This model is not very common in the analysis of coupled-inductor circuits but has one mayor advantage: The currents of the two inductors only depend on the input and output voltages. The equivalency of both models can be shown from the governing equations:
+\begin{equation}
+    \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} \sbl{Lm}+\sbl{Lout} & -\sbl{Lm}+\sbl{Lout} \\ \sbl{Lm}+\sbl{Lout} & \sbl{Lm}+\sbl{Lout} \end{bmatrix} \begin{bmatrix} \frac{d\sbl{i1}}{dt}  \\ \frac{d\sbl{i2}}{dt} \end{bmatrix}
+\end{equation}
+Comparing the coefficients proves that both models are identical for
+\begin{equation}
+  \label{eq:LoutandLmfromk}
+  \begin{aligned}
+    \sbl{Lout} & = (1+\sbl{k})\frac{\sbl{Lself}}{2} \\
+    \sbl{Lm} & = (1-\sbl{k})\frac{\sbl{Lself}}{2}.
+  \end{aligned}
+\end{equation}
+%Both circuits are electrically equivalent for $\sbl{Lout} = (1+\sbl{k})\frac{\sbl{Lself}}{2}$ and $\sbl{Lm} = (1-\sbl{k})\frac{\sbl{Lself}}{2}$.
 The voltage at the virtual central node in the transformer model is only dependent on the two leg voltages \sbl{v1} and \sbl{v2}, decoupling the governing equations:
 \begin{equation}
   \label{eq:TransformerModel}
@@ -184,7 +190,7 @@ where \sbl{iout_avg} is the average value of \sbl{iout}.
 \section{Inductor Design}
 \paragraph{Inductor geometry}
 \begin{figure}
-  \includegraphics[page=1, trim = 0cm 6.8cm 4.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=1, trim = 0cm 6.8cm 4.5cm 0cm, clip, width=\columnwidth]{../figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Structure of the studied cores in side-view if cut through the middle. First winding in red, second winding in blue.}
   \label{fig:Core_Drawings}
 \end{figure}
@@ -199,13 +205,13 @@ TDK's PC200 was selected for this design as it exhibits very low loss in the ran
 \paragraph{Positive vs negative coupling}
 \begin{figure}
     \centering
-    %\resizebox{0.9\columnwidth}{!}{\input{figures/Python/current_ripple_plot.pgf}}
-    \includegraphics[width=0.95\columnwidth]{figures/Python/current_ripple_plot.pdf}
+    %\resizebox{0.9\columnwidth}{!}{\input{../figures/Python/current_ripple_plot.pgf}}
+    \includegraphics[width=0.95\columnwidth]{../figures/Python/current_ripple_plot.pdf}
     \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycles \sbl{D}. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
     \label{fig:OutputAndLegRipple}
 \end{figure}
 \begin{figure}
-  \includegraphics[page=3, trim = 0cm 1cm 3.5cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=3, trim = 0cm 1cm 3.5cm 0cm, clip, width=\columnwidth]{../figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Flux-Distribution for negative and positive coupling of otherwise identical designs for a DC phase current of \qty{40}{\A} and \qty{100}{\A} of ripple.}
   \label{fig:Fluxposneg}
 \end{figure}
@@ -218,7 +224,7 @@ For the simulation, the open-source 2D FEM software FEMM was used due to its hig
 
 \paragraph{Split air gap and optimized windings}
 \begin{figure}
-  \includegraphics[page=1, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{figures/IPEC_Figure_AirGap.pdf}
+  \includegraphics[page=1, trim = 0cm 0cm 3cm 0cm, clip, width=\columnwidth]{../figures/IPEC_Figure_AirGap.pdf}
   \caption{Field and current distribution for different approaches. Because all layers are in parallel the current crowds in areas of large field-strength. By splitting the gap, the field gets distributed more evenly and the current distribution improves. Utilizing a smaller width for the outer layers, i.e. moving the copper away from the high-flux areas distributes the current even better.}
   \label{fig:OptimizedGap}
 \end{figure}
@@ -242,7 +248,7 @@ For the simulation, the open-source 2D FEM software FEMM was used due to its hig
   \end{tblr}
 \end{table}
 
-The external proximity effect caused by the air gap plays an important role for the current distribution and consequently the losses of this high-frequency inductor. The field-strength at the top of the windings is large and almost zero at the bottom. As a result, the AC current is only flowing in the top layers. By centering the pillar vertically in the window such that there is an equal air gap on the top and on the bottom, the field-strength is distributed much more uniformly and current flows in the top and bottom layers. This results in a \qty{20}{\percent} reduction in losses, which can be reduced even further by using curved windings as shown in Table \ref{tab:OptimizationPQ}.
+The external proximity effect caused by the air gap plays an important role for the current distribution and consequently the losses of this high-frequency inductor. The field-strength at the top of the windings is large and almost zero at the bottom as shown in Fig. \ref{fig:OptimizedGap}. As a result, the AC current is only flowing in the top layers. By centering the pillar vertically in the window such that there is an equal air gap on the top and on the bottom, the field-strength is distributed much more uniformly and current flows in the top and bottom layers. This results in a \qty{20}{\percent} reduction in losses, which can be reduced even further by using curved windings as shown in Table \ref{tab:OptimizationPQ}.
 
 \paragraph{Comparison of Core Structures}
 Table \ref{tab:InductorComparison} compares the different core structures for a design with $\sbl{fs}=\qty{1.5}{\MHz}$ at $\sbl{iout_avg} = \qty{80}{\A}$ and $\sbl{k} = -0.3$. This coupling factor was chosen because it allows the use of small air gaps at the pillar which reduces copper losses due to the smaller external field while still not increasing \sbl{DeltaIout} too much. The cross-sectional areas were designed to result in $\sbl{Hdc} \leq \qty{40}{\A\per\m}$. All designs except the one with vertical gap use the optimized curved windings. The four-pole structure showed both lowest losses and lowest volume and was chosen for the implementation. The final design of the four-pole structure with optimized windings is shown in Fig. \ref{fig:Four-Pole-3d}.
@@ -269,7 +275,7 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\columnwidth]{figures/Four-Pole-3d.png}
+  \includegraphics[width=0.6\columnwidth]{../figures/Four-Pole-3d.png}
   \caption{Final design of the four-pole inductor; top-piece not shown.}
   \label{fig:Four-Pole-3d}
 \end{figure}
@@ -277,7 +283,7 @@ Table \ref{tab:InductorComparison} compares the different core structures for a 
 \section{Experimental prototype}
 \begin{figure}
   \centering
-  \includegraphics[page=2, trim = 0cm 0cm 3cm 0cm, clip, width=0.8\columnwidth]{figures/IPEC_Figures_PowerPoint.pdf}
+  \includegraphics[page=2, trim = 0cm 0cm 3cm 0cm, clip, width=0.8\columnwidth]{../figures/IPEC_Figures_PowerPoint.pdf}
   \caption{Fully assembled prototype (without heatspreader).  The converter area shown in orange is 45 x 29 x \qty{9.5}{\mm}. Outside of this area only the connectors for power and programming are placed as well as a protection diode and the programming resistors.}
   \label{fig:PrototypePicture}
 \end{figure}
@@ -309,7 +315,7 @@ The converter operates over the entire power range as expected. The efficiency i
 
 \begin{figure}
   \centering
-  \input{figures/Efficiency_48V_TDK.tikz}
+  \input{../figures/Efficiency_48V_TDK.tikz}
   \caption{Efficiency of the prototype for $\sbl{Vin}=\qty{48}{\V}$ and $D=0.25$.}
   \label{fig:Efficiency}
 \end{figure}
@@ -325,7 +331,6 @@ The final paper will add a more detailed analysis of the losses, comparing the d
 
 % https://ipec2026.org/regular-session/ 
 
-% The extended summary should clearly define the salient concepts
-% and novel features of the work. Be sure to mention past or
-% previous works to distinguish your originality from them. The
-% extended summary should be up to 4 pages except Reference,
+% The total paper length should not exceed 8 pages. No extra pages are permitted.
+% Final papers have to be submitted electronically in PDF file by March 23, 9:00 (JST)
+% Authors are requested to use official IEEE PDF eXpress software to attain IEEE Xplore-compatible PDF files.
