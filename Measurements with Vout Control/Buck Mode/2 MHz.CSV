@@ -1,0 +1,113 @@
+Model;WT1800E
+Comment;
+Version;3.31
+Date;2026/03/16
+Time;12:45:49
+
+<Settings>
+Measurement Mode;Normal Mode
+Sigma;SigmaA
+Sigma Wiring;3P4W
+Delta Measure Type;Star->Delta
+Delta Measure Mode;RMS
+Element;Element1;Element2;Element3;Element4;Element5;Element6
+Module;1kV5A;1kV5A;1kV50A;1kV50A;1kV50A;1kV50A
+Wiring;1P2W;1P2W;1P2W;SigmaA(3P4W);SigmaA(3P4W);SigmaA(3P4W)
+Voltage Range;Auto;Auto;Auto;Auto;Auto;Auto
+Terminal;Direct;Direct;Direct;Direct;Direct;Direct
+Current Range;Auto;Auto;Auto;Auto;Auto;Auto
+Sensor Preset;Others;Others;Others;Others;Others;Others
+Sensor Ratio;10,0000;10,0000;10,0000;10,0000;10,0000;10,0000
+Line Filter;Off;Off;Off;Off;Off;Off
+Frequency Filter;Off;Off;Off;Off;Off;Off
+Ct Preset;Others;Others;Others;Others;Others;Others
+Scaling;On;On;On;On;On;On
+Vt Ratio;1,0000;1,0000;1,0000;1,0000;1,0000;1,0000
+Ct Ratio;1,0000;1000,0000;1,0000;1,0000;1,0000;1,0000
+Scaling Factor;1,0000;1,0000;1,0000;1,0000;1,0000;1,0000
+Sync Source;None;U4;U4;U4;U4;U4
+WP Type;Charge/Discharge;Charge/Discharge;Charge/Discharge;Charge/Discharge;Charge/Discharge;Charge/Discharge
+q Mode;dc;dc;dc;dc;dc;dc
+Null U;Off;Off;Off;Off;Off;Off
+Null I;Off;Off;Off;Off;Off;Off
+Element Independent;Off
+Average;Lin;20
+F1(Avg-W);Off
+F2(P-loss);P(E3)-P(E4)-P(E5)-P(E6);Unit;W
+F3(U-ripple);Off
+F4(I-ripple);Off
+F5(D-UrmsR);Off
+F6(etaBuck);(P(E2)/(P(E1)+P(E3)))*100;Unit;%
+F7(etaNurBk);(P(E2)/P(E3))*100;Unit;%
+F8(ploss);P(E3)-P(E2);Unit;W
+F9(Vout/Vin);U(E2)/U(E3);Unit;
+F10(D-UmnT);Off
+F11(PhiU3-U2);Off
+F12(PhiI1-I2);Off
+F13(PhiI2-I3);Off
+F14(PhiI3-I1);Off
+F15(Pp-p);Off
+F16(F16);Off
+F17(F17);Off
+F18(F18);Off
+F19(F19);Off
+F20(F20);Off
+Evt1(Ev1);Off
+Evt2(Ev2);Off
+Evt3(Ev3);Off
+Evt4(Ev4);Off
+Evt5(Ev5);Off
+Evt6(Ev6);Off
+Evt7(Ev7);Off
+Evt8(Ev8);Off
+S Formula;Urms X Irms
+S,Q Formula;Type 1
+PC Formula;IEC76(1976);0,5000;0,5000
+Phase Angle;180 degree
+Update Rate;50ms
+Crest Factor;3
+eta1 Formula;P3/P-SigA*100
+eta2 Formula;P-SigA/P3*100
+eta3 Formula;P2/P3*100
+eta4 Formula;P3/P2*100
+
+Motor Item;Speed;Torque;Pm
+Scaling;1,0000;1,0000;1,0000
+Unit;rpm;Nm;W
+Sensor Type;Analog;Analog
+Range;20V;20V
+Linear Scale A;1,000;1,000
+Linear Scale B;0,000;0,000
+Line Filter;Off
+Sync Source;None
+Range Upper;10000,0000;50,0000
+Range Lower;0,0000;-50,0000
+Rated Upper;;50,0000;15000Hz
+Rated Lower;;-50,0000;5000Hz
+Pulse N;60
+Pole;2
+Sync Speed Source;I1
+EA Measurement;Off
+EA Correction;0,0
+Null;Off;Off
+
+<Settings (Harmonics)>
+Element;Element1;Element2;Element3;Element4;Element5;Element6
+PLL Source;U4;U4;U4;U4;U4;U4
+Order;1 To 100;1 To 100;1 To 100;1 To 100;1 To 100;1 To 100
+THD Formula;Total;Total;Total;Total;Total;Total
+
+Store No.;Date;Time;P-E3[W];P-E1[W];Udc-E3[V];Udc-E2[V];Udc-E1[V];etaBuck[%];etaNurBk[%];ploss[W];P-E2[W];Idc-E3[A];Idc-E2[A];Idc-E2[A]
+    1;2026/03/16;12:44:05;13,139E+00;1,2299E+00;47,996E+00;12,040E+00;4,9568E+00;-236,56E-03;-258,71E-03;13,173E+00;-33,992E-03;273,75E-03;4,0969E-03;4,0969E-03
+    2;2026/03/16;12:44:18;73,297E+00;1,2234E+00;47,991E+00;12,040E+00;4,9568E+00;80,755E+00;82,103E+00;13,118E+00;60,179E+00;1,5273E+00;5,0054E+00;5,0054E+00
+    3;2026/03/16;12:44:24;133,50E+00;1,2122E+00;47,986E+00;12,039E+00;4,9573E+00;89,323E+00;90,134E+00;13,172E+00;120,33E+00;2,7821E+00;10,002E+00;10,002E+00
+    4;2026/03/16;12:44:29;193,93E+00;1,2039E+00;47,981E+00;12,039E+00;4,9575E+00;92,519E+00;93,094E+00;13,394E+00;180,54E+00;4,0418E+00;15,003E+00;15,003E+00
+    5;2026/03/16;12:44:34;254,54E+00;1,2058E+00;47,978E+00;12,039E+00;4,9577E+00;94,125E+00;94,571E+00;13,820E+00;240,72E+00;5,3053E+00;20,002E+00;20,002E+00
+    6;2026/03/16;12:44:41;315,18E+00;1,2216E+00;47,973E+00;12,038E+00;4,9568E+00;95,102E+00;95,470E+00;14,276E+00;300,91E+00;6,5700E+00;25,005E+00;25,005E+00
+    7;2026/03/16;12:44:47;376,04E+00;1,2401E+00;47,970E+00;12,039E+00;4,9565E+00;95,717E+00;96,033E+00;14,918E+00;361,12E+00;7,8390E+00;30,004E+00;30,004E+00
+    8;2026/03/16;12:44:53;436,96E+00;1,2453E+00;47,964E+00;12,038E+00;4,9562E+00;96,135E+00;96,409E+00;15,693E+00;421,26E+00;9,1100E+00;35,003E+00;35,003E+00
+    9;2026/03/16;12:44:59;498,97E+00;1,2414E+00;47,959E+00;12,037E+00;4,9562E+00;96,243E+00;96,483E+00;17,550E+00;481,42E+00;10,404E+00;40,003E+00;40,003E+00
+   10;2026/03/16;12:45:06;563,81E+00;1,2324E+00;47,953E+00;12,040E+00;4,9567E+00;95,878E+00;96,087E+00;22,060E+00;541,75E+00;11,758E+00;45,003E+00;45,003E+00
+   11;2026/03/16;12:45:14;631,06E+00;1,2200E+00;47,945E+00;12,039E+00;4,9570E+00;95,192E+00;95,376E+00;29,181E+00;601,87E+00;13,162E+00;50,003E+00;50,003E+00
+   12;2026/03/16;12:45:20;698,20E+00;1,2107E+00;47,938E+00;12,039E+00;4,9575E+00;94,646E+00;94,810E+00;36,233E+00;661,97E+00;14,565E+00;54,993E+00;54,993E+00
+   13;2026/03/16;12:45:26;763,26E+00;1,2034E+00;47,934E+00;12,040E+00;4,9578E+00;94,469E+00;94,618E+00;41,076E+00;722,18E+00;15,923E+00;59,991E+00;59,991E+00
