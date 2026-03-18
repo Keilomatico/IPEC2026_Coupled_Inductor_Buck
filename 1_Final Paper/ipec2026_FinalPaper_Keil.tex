@@ -84,7 +84,7 @@
     Gean Maia de Sousa\textsuperscript{2},
     Vincent Lorentz\textsuperscript{3},
     Thomas Heckel\textsuperscript{1},
-    Marcello Lobo Heldwein\textsuperscript{2}
+    Marcelo Lobo Heldwein\textsuperscript{2}
 }
 \IEEEauthorblockA{1 Fraunhofer Institute for Integrated Systems and Device Technology IISB, Erlangen, Germany}
 \IEEEauthorblockA{2 Chair of High-Power Converter Systems, Technical University of Munich, Germany}
@@ -160,8 +160,8 @@ Comparing the coefficients shows that both models are identical for
 \begin{equation}
   \label{eq:LoutandLmfromk}
   \begin{aligned}
-    \sbl{Lout} & = (1+\sbl{k})\frac{\sbl{Lself}}{2} \\
-    \sbl{Lm} & = (1-\sbl{k})\frac{\sbl{Lself}}{2}.
+    \sbl{Lout} & = (1+\sbl{k})\,\frac{\sbl{Lself}}{2} \\
+    \sbl{Lm} & = (1-\sbl{k})\,\frac{\sbl{Lself}}{2}.
   \end{aligned}
 \end{equation}
 %Both circuits are electrically equivalent for $\sbl{Lout} = (1+\sbl{k})\frac{\sbl{Lself}}{2}$ and $\sbl{Lm} = (1-\sbl{k})\frac{\sbl{Lself}}{2}$.
@@ -176,18 +176,18 @@ The voltage at the virtual central node in the transformer model is only depende
 \end{equation}
 From this, the differential equations for each interval can be easily calculated and equations for the important converter parameters can be derived. An effective duty cycle \sbl{Deff} is introduced with $\sbl{Deff} = D$ for $\sbl{D} \leq 0.5$ and $\sbl{Deff} = 1-D$ for $\sbl{D} > 0.5$ to create universal equations. The peak-to-peak output ripple is then given by
 \begin{equation}
-  \sbl{DeltaIout} = \frac{2\sbl{Vin}}{\sbl{fs}(1+\sbl{k})\sbl{Lself}}\sbl{Deff}\left (\frac{1}{2}-\sbl{Deff} \right ).
+  \sbl{DeltaIout} = \frac{2\,\sbl{Vin}}{\sbl{fs}\,(1+\sbl{k})\,\sbl{Lself}}\sbl{Deff}\left (\frac{1}{2}-\sbl{Deff} \right ).
   \label{eq:DeltaIout}
 \end{equation}
 The peak-to-peak ripple in each leg which is important for soft switching is
 \begin{equation}
-  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{fs}\sbl{Lself}} \left (\frac{2}{1+\sbl{k}} \left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right ).
+  \sbl{DeltaIleg} =  \frac{\sbl{Vin}\,\sbl{Deff}}{2\,\sbl{fs}\,\sbl{Lself}} \left (\frac{2}{1+\sbl{k}} \left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right ).
   \label{eq:DeltaIleg}
 \end{equation}
 
 \sbl{Ion} needs to be below a certain negative value \sbl{Ion,max} to guarantee a sufficiently short dead time. This is fulfilled for
 \begin{equation}
-    \sbl{fs} < \frac{\sbl{Vin}\sbl{Deff}}{2\sbl{Lself}(\sbl{iout_avg}+2\sbl{Ion,max})} \left (\frac{2}{1+\sbl{k}}\left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right )
+    \sbl{fs} < \frac{\sbl{Vin}\,\sbl{Deff}}{2\,\sbl{Lself}\,(\sbl{iout_avg}+2\,\sbl{Ion,max})} \left (\frac{2}{1+\sbl{k}}\left (\frac{1}{2}-\sbl{Deff} \right ) + \frac{1}{1-\sbl{k}} \right )
     \label{eq:ConditionZVS}
 \end{equation}
 where \sbl{iout_avg} is the average value of \sbl{iout}.
@@ -212,7 +212,7 @@ TDK's PC200 was selected for this design as it exhibits very low loss in the ran
     \centering
     %\resizebox{0.9\columnwidth}{!}{\input{../figures/Python/current_ripple_plot.pgf}}
     \includegraphics[width=0.95\columnwidth]{../figures/Python/current_ripple_plot.pdf}
-    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycles \sbl{D}. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
+    \caption{Peak-to-peak leg and output current ripple in dependency of the coupling factor for different duty cycles \sbl{D} normalized to $\frac{\sbl{Vin}}{\sbl{fs} \sbl{Lself}}$. \textit{Note:} For $\sbl{D}=0.15$ and $\sbl{D}=0.35$ the output current ripple is identical so the curves overlap.}
     \label{fig:OutputAndLegRipple}
 \end{figure}
 \begin{figure}

@@ -23,7 +23,7 @@ X_ZOOM = 1        # zoom factor for x-axis (2 = show only half the recorded time
 T_START_US = 0.59
 T_END_US = 1.59
 X_TICK_SPACING_US = 0.1
-X_TICKS_US = np.linspace(0, 0.9, num=10)  # e.g. [0, 0.25, 0.5]  — explicit x tick values [µs]; overrides X_TICK_SPACING_US
+#X_TICKS_US = np.linspace(0, 0.9, num=10)  # e.g. [0, 0.25, 0.5]  — explicit x tick values [µs]; overrides X_TICK_SPACING_US
 
 V_YLIM    = (-20,65)    # voltage y-axis limits; None = automatic
 V_YTICKS  = [0, 48]     # voltage y-axis tick values; None = automatic

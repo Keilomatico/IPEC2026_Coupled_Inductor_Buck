@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 plt.style.use('IPEC_Style.mplstyle')
 
 # ── Settings ──────────────────────────────────────────────────────────────────
-#DATA_FOLDER = "2MHz 48V 40A 0.25 DB1-1"
-DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - Meas2"
-#DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - FairRite"
+DATA_FOLDER = "2MHz 48V 40A 0.25 DB1-1"
+#DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - Meas2"
 TIME_UNIT   = "µs"          # display unit for time axis
 TIME_SCALE  = 1e6           # 1 s → 1e6 µs
 figsize = (6, 3.5)
@@ -140,8 +139,9 @@ if X_TICKS_US is not None:
 elif X_TICK_SPACING_US is not None:
     from matplotlib.ticker import MultipleLocator
     ax_i.xaxis.set_major_locator(MultipleLocator(X_TICK_SPACING_US))
-ax_i.set_xlabel(f"[{TIME_UNIT}]", rotation=0)
-ax_i.xaxis.set_label_coords(0.98, -0.04)
+#ax_i.set_xlabel(f"[{TIME_UNIT}]", rotation=0)
+#ax_i.xaxis.set_label_coords(0.98, -0.04)
+ax_i.set_xlabel(f"Time [{TIME_UNIT}]", rotation=0)
 
 #fig.suptitle("Oscilloscope Measurements", fontsize=13, y=1.01)
 fig.tight_layout()

@@ -9,6 +9,7 @@
 \begin{tikzpicture}
     \begin{axis}[%
         axis y line*=left,
+        font=\footnotesize,
         width=\columnwidth,
         height=0.6\columnwidth,
         xmin=0,
