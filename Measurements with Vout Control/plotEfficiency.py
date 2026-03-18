@@ -76,7 +76,7 @@ for filename in os.listdir(data_folder):
         if power_col and eff_col:
             x = pd.to_numeric(df[power_col[0]], errors='coerce')
             y = pd.to_numeric(df[eff_col[0]],   errors='coerce')
-            mask = x.notna() & y.notna()
+            mask = x.notna() & y.notna() & (y >= 50)
             x, y = x[mask].to_numpy(), y[mask].to_numpy()
             label = filename.rsplit(".", 1)[0]
             color = plt.gca()._get_lines.get_next_color()
@@ -84,7 +84,7 @@ for filename in os.listdir(data_folder):
             plt.scatter(x, y, s=15, color=color, zorder=3)
             # Smooth centripetal Catmull-Rom spline through the points
             xs, ys = catmull_rom_smooth(x, y, num_points=50)
-            plt.plot(xs, ys, color=color, label=label)
+            plt.plot(xs, ys, color=color, linewidth=1, label=label)
         else:
             print(f"WARNING: Could not find columns in {filename}")
             print(f"  Available columns: {df.columns.tolist()}")
@@ -93,10 +93,14 @@ if not found_files:
     print(f"No CSV files found in '{os.path.abspath(data_folder)}'")
 
 plt.xlabel(r'$P_\mathrm{out}$ [W]')
-plt.ylabel(r'Efficiency [\unit{\percent}]') 
+#plt.ylabel(r'Efficiency [\unit{\percent}]') 
+plt.ylabel(r'Efficiency') 
 #plt.title("Efficiency vs Output Power (Buck Mode)")
 plt.ylim(90, 98)
 plt.xlim(0, 1000)
+plt.gca().yaxis.set_major_formatter(
+    plt.matplotlib.ticker.FuncFormatter(lambda v, _: rf'${v:g}\,\%$')
+)
 plt.legend()
 plt.grid(True)
 plt.tight_layout()

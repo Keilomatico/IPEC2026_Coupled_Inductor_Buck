@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 plt.style.use('IPEC_Style.mplstyle')
 
 # ── Settings ──────────────────────────────────────────────────────────────────
-DATA_FOLDER = "2MHz 48V 40A 0.25 DB1-1"
-#DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - Meas2"
+#DATA_FOLDER = "2MHz 48V 40A 0.25 DB1-1"
+DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - Meas2"
 #DATA_FOLDER = "2MHz 48V 0A 0.25 DB1-1 - FairRite"
 TIME_UNIT   = "µs"          # display unit for time axis
 TIME_SCALE  = 1e6           # 1 s → 1e6 µs
