@@ -155,7 +155,7 @@ The symmetrical coupled inductor shown in  Fig. \ref{fig:InductorModel} (a) cons
 with self inductance \sbl{Lself} and magnetic air gap \sbl{k} ($-1 \leq k \leq 1$).
 In order to provide a more intuitive understanding, the equivalent circuit in Fig. \ref{fig:InductorModel} (b) is introduced. This model is not very common in the analysis of coupled inductor circuits, but has one major advantage: The currents of the two inductors only depend on the input and output voltages. The equivalency of both models can be shown from the governing equations:
 \begin{equation}
-    \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} \sbl{Lm}+\sbl{Lout} & -\sbl{Lm}+\sbl{Lout} \\ \sbl{Lm}+\sbl{Lout} & \sbl{Lm}+\sbl{Lout} \end{bmatrix} \begin{bmatrix} \frac{\dif \sbl{i1}}{dt}  \\ \frac{\dif \sbl{i2}}{dt} \end{bmatrix}
+    \begin{bmatrix} v_\mathrm a \\ v_\mathrm b \end{bmatrix} = \begin{bmatrix} \sbl{Lm}+\sbl{Lout} & -\sbl{Lm}+\sbl{Lout} \\ -\sbl{Lm}+\sbl{Lout} & \sbl{Lm}+\sbl{Lout} \end{bmatrix} \begin{bmatrix} \frac{\dif \sbl{i1}}{dt}  \\ \frac{\dif \sbl{i2}}{dt} \end{bmatrix}
 \end{equation}
 Comparing the coefficients shows that both models are identical for
 \begin{equation}

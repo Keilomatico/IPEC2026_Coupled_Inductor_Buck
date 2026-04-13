@@ -30,7 +30,7 @@
      showgrid="true"
      inkscape:zoom="4"
      inkscape:cx="149.875"
-     inkscape:cy="85.625001"
+     inkscape:cy="85.625"
      inkscape:window-width="2560"
      inkscape:window-height="1351"
      inkscape:window-x="1911"
@@ -1195,9 +1195,11 @@
        id="tspan90"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#000000;fill-opacity:1;stroke-width:0.264583"
        x="12.425088"
-       y="19.362642">C<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan91">in</tspan></tspan></text>
+       y="19.362642"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic'"
+         id="tspan3">C</tspan><tspan
+         style="font-size:65%;baseline-shift:sub"
+         id="tspan91">in</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-size:3.52778px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
@@ -1208,9 +1210,11 @@
        id="tspan90-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#000000;fill-opacity:1;stroke-width:0.264583"
        x="71.956322"
-       y="27.300137">C<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan91-1">out</tspan></tspan></text>
+       y="27.300137"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic'"
+         id="tspan2">C</tspan><tspan
+         style="font-size:65%;baseline-shift:sub"
+         id="tspan91-1">out</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-size:3.52778px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
@@ -1264,7 +1268,7 @@
        x="41.21365"
        y="11.409485">Q<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan91-2-8">2b</tspan></tspan></text>
+   id="tspan91-2-8">2a</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-size:3.52778px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
